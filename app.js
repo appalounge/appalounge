@@ -6,9 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 function create(db) {
-
+	
 	var routes = require('./routes/index')(db);
 	var users = require('./routes/users')(db);
+	var members = require('./routes/members')(db);
 
 	var app = express();
 
@@ -26,6 +27,7 @@ function create(db) {
 
 	app.use('/', routes);
 	app.use('/users', users);
+	app.use('/members', members);
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {

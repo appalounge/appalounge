@@ -17,6 +17,10 @@ var config = {
 	        authentication: {
 	            username: '',
 	            password: ''
+	        },
+	        collections: {
+	        	users: 'users',
+	        	members: 'members'
 	        }
 	    }
 }
