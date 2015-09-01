@@ -20,7 +20,6 @@ var config = {
 	        },
 	        collections: {
 	        	users: 'users',
-	        	members: 'members'
 	        }
 	    }
 }

@@ -6,14 +6,14 @@ module.exports = function(db) {
 
 	/* GET user list. */
 	router.get('/list', function(req, res, next) {
-		db.collection(config.db.collections.users).find({}, { username: 1 }).toArray(function(err, result) {
+		db.collection(config.db.collections.users).distinct('username', function(err, result) {
 			return res.json(result);
 		});
 	});
 
 	/* GET user data. */
 	router.get('/data', function(req, res, next) {
-		db.collection(config.db.collections.users).find({}, { _id: 0, password: 0 }).toArray(function(err, result) {
+		db.collection(config.db.collections.users).find({}, { password: 0 }).toArray(function(err, result) {
 			return res.json(result);
 		});
 	});
