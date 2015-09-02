@@ -9,6 +9,7 @@ function create(db) {
 	
 	var routes = require('./routes/index')(db);
 	var users = require('./routes/users')(db);
+	var dataUsers = require('./routes/data/users')(db);
 
 	var app = express();
 
@@ -26,6 +27,7 @@ function create(db) {
 
 	app.use('/', routes);
 	app.use('/users', users);
+	app.use('/data/users', dataUsers)
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
