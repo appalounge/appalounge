@@ -40,35 +40,53 @@ function create(db) {
 
 	// error handlers
 
+    function getImage(callback) {
+		var pics = [
+            '/images/dylan/dylan1.jpg',
+            '/images/dylan/dylan2.jpg',
+            '/images/dylan/dylan3.jpg'
+        ];
+        var quotes = [
+            'However, Dylan is amused by your failure.',
+            'Hopefully Dylan can help you find what you are looking for!',
+            'Instead, enjoy this picture of a happy Dylan.'
+        ];
+        var index = ~~(Math.random() * pics.length);
+        console.log(index);
+        var image = pics[index];
+        var quote = quotes[index];
+        console.log(image);
+        console.log(quote);
+        callback(image, quote);
+    }
+    
 	// development error handler
 	// will print stacktrace
 	if (app.get('env') === 'development') {
 	  app.use(function(err, req, res, next) {
-	    res.status(err.status || 500);
-		var pics = [
-            '/images/dylan/ajsndkajnsd.jpg',
-            '....'
-        ];
-        var quotes = [
-
-        ];
-        var index = Math.random() * pics.length;
-        var path = pics[index];
-	    res.render('dylan404', {
-	      message: err.message,
-	      error: err,
-          image: path
-	    });
+          getImage(function(image, quote) {
+	       res.status(err.status || 500);
+              res.render('dylan404', {
+                  message: err.message,
+                  error: err,
+                  image: image,
+                  quote: quote
+              });
+          });
 	  });
 	}
 	// production error handler
 	// no stacktraces leaked to user
 	app.use(function(err, req, res, next) {
-	  res.status(err.status || 500);
-	  res.render('error', {
-	    message: err.message,
-	    error: {}
-	  });
+          getImage(function(image, quote) {
+	       res.status(err.status || 500);
+              res.render('dylan404', {
+                  message: err.message,
+                  error: {},
+                  image: image,
+                  quote: quote
+              });
+          });
 	});
 
 	return app;
