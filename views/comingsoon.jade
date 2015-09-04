@@ -1,6 +1,12 @@
-extends layout
-
-block content
-  h1 Coming soon!
-  p appalounge.com is still in development..
-  a(style='float:right', href='/dankmemes') Dank Memes
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='/js/comingsoon.js')
+  body
+    h1(id='header') Coming soon!
+    p(id='header2') appalounge.com is still in development..
+    a(style='float:right', href='/dankmemes') Dank Memes
+    img(src='images/11989105_883896211686452_401753163_n.gif')
