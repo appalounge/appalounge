@@ -7,8 +7,7 @@ var fs = require('fs');
 module.exports = function(db) {
 
 	router.get('/', function(req, res, next) {
-		console.log(path.join(__dirname, config.server.publicDirectory, 'images/gallery'));
-		var contents = fs.readdirSync(path.join(__dirname, config.server.publicDirectory, 'images/gallery'));
+		var contents = fs.readdirSync('./public/images/gallery');
 		var pics = [];
 		for (var i = 0; i < contents.length; i++) {
 			if (contents[i].match(/^.*.jpg$/)) {
