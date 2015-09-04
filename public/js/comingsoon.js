@@ -1,4 +1,5 @@
-$(document).ready(function(){
+
+$(function(){
 	var colors = [
 	              "red",
 	              "orange",
