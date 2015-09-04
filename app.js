@@ -23,10 +23,10 @@ function create(db) {
 
 	app.use('/', require('./routes/views/index')(db));
 	app.use('/users', require('./routes/views/users')(db));
-	app.use('/dankmemes', require('./routes/views/dankmemes')(db));
+	app.use('/gallery', require('./routes/views/gallery')(db));
 	
 	app.use('/data/users', require('./routes/data/users')(db));
-	app.use('/data/dankmemes', require('./routes/data/dankmemes')(db));
+	app.use('/data/gallery', require('./routes/data/gallery')(db));
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {

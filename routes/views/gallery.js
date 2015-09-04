@@ -5,7 +5,7 @@ module.exports = function(db){
 
 	/* GET home page. */
 	router.get('/', function(req, res, next) {
-		res.render('dankmemes');
+		res.render('gallery');
 	});
 	
 	return router;
