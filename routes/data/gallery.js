@@ -10,7 +10,7 @@ module.exports = function(db) {
 		var memes = [];
 		for (var i = 0; i < contents.length; i++) {
 			if (contents[i].match(/^.*.jpg$/)) {
-				memes.push(contents[i]);
+				memes.push('/images/gallery/' + contents[i]);
 			}
 		}
 		res.json(memes);

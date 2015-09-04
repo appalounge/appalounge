@@ -42,9 +42,19 @@ function create(db) {
 	if (app.get('env') === 'development') {
 	  app.use(function(err, req, res, next) {
 	    res.status(err.status || 500);
-	    res.render('error', {
+		var pics = [
+            '/images/dylan/ajsndkajnsd.jpg',
+            '....'
+        ];
+        var quotes = [
+
+        ];
+        var index = Math.random() * pics.length;
+        var path = pics[index];
+	    res.render('dylan404', {
 	      message: err.message,
-	      error: err
+	      error: err,
+          image: path
 	    });
 	  });
 	}
