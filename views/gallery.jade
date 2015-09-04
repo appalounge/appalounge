@@ -2,6 +2,7 @@ doctype html
 html
   head
     title Dank Memes - Appa Lounge
+    link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(src='/js/gallery.js')
     link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
@@ -24,15 +25,11 @@ html
                     li
                       a(href='/') Home
                     li
-                      a(href='people.html') Tutors
-                    li
-                      a(href='plan.html') Strategy
-                    li
-                      a(href='about.html') About
-                    li
-                      a(href='services.html') Services
+                      a(href='/users') Members
                     li.active
-                      a(href='#') Gallery
+                      a(href='/gallery') Gallery
+                    li
+                      a(href='/events') Events
         .container.marketing
           h2#title.needs-margin
             | Appa Lounge Gallery
