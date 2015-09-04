@@ -1,3 +1,4 @@
+var config = require('./config');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -19,15 +20,17 @@ function create(db) {
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(cookieParser());
-	app.use(express.static(path.join(__dirname, 'public')));
+	app.use(express.static(path.join(__dirname, config.server.publicDirectory)));
 
-	app.use('/', require('./routes/index')(db));
-	app.use('/users', require('./routes/users')(db));
-	app.use('/gallery', require('./routes/gallery')(db));
+	app.use('/', require(path.join(__dirname, config.server.routesDirectory, 'index'))(db));
+	app.use('/users', require(path.join(__dirname, config.server.routesDirectory, 'users'))(db));
+	app.use('/gallery', require(path.join(__dirname, config.server.routesDirectory, 'gallery'))(db));
+	app.use('/uploads', require(path.join(__dirname, config.server.routesDirectory, 'uploads'))(db));
+
+	app.use('/data/users', require(path.join(__dirname, config.server.routesDirectory, 'data/users'))(db));
+	app.use('/data/gallery', require(path.join(__dirname, config.server.routesDirectory, 'data/gallery'))(db));
+	app.use('/data/uploads', require(path.join(__dirname, config.server.routesDirectory, 'data/uploads'))(db));
 	
-	app.use('/data/users', require('./routes/data/users')(db));
-	app.use('/data/gallery', require('./routes/data/gallery')(db));
-
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
 	  var err = new Error('Not Found');
@@ -58,7 +61,6 @@ function create(db) {
 	    });
 	  });
 	}
-
 	// production error handler
 	// no stacktraces leaked to user
 	app.use(function(err, req, res, next) {
