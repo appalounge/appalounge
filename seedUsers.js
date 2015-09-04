@@ -12,6 +12,7 @@ MongoClient.connect(dburi, { server: { ssl: config.db.useSSL, sslValidate: false
 		console.error(err1.toString());
 	}
 	else {
+		console.log('Connected to database');
 		if (config.db.authenticate) {
 			db.authenticate(config.db.authentication.username, config.db.authentication.password, function (err2) {
 				if (err2) {
@@ -30,16 +31,21 @@ MongoClient.connect(dburi, { server: { ssl: config.db.useSSL, sslValidate: false
 });
 
 function seedUsers(db, userData) {
+	console.log('Seeding users');
 	var userData;
 	try {
 		userData = require('./testUsersConfidential').userData; // not included in public repo
+		console.log('Using confidential test users');
 	} catch(err) {
 		userData = require('./testUsers').userData;
+		console.log('Using non-confidential test users');
 	}
 	
 	removeUsers(db, function() {
+		console.log('Removed users');
 		insertUsers(db, userData, function() {
-			console.log('Success!');
+			console.log('Inserted users');
+			console.log('Done!');
 			db.close();
 		});
 	});
