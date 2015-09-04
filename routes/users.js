@@ -19,12 +19,15 @@ module.exports = function(db) {
 				res.render('userPage', result);
 			}
 			else {
-				var err = new Error('Not Found');
+				/*var err = new Error('Not Found');
 				err.status = 404;
 			    res.render('error', {
 			    	message: err.message,
 			    	error: err
-			    });
+			    });*/
+	            var err = new Error('Not Found');
+	            err.status = 404;
+                next(err);
 			}
 		});
 	});
