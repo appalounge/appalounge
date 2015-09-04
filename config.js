@@ -12,7 +12,7 @@ var config = {
 	        port: 27017,
 	        mainDb: 'appa',
 	        useSSL: false,
-	        required: false,
+	        required: true,
 	        authenticate: false,
 	        authentication: {
 	            username: '',
