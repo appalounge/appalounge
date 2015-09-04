@@ -1,3 +1,4 @@
+var config = require('./config');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -19,15 +20,17 @@ function create(db) {
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(cookieParser());
-	app.use(express.static(path.join(__dirname, 'public')));
+	app.use(express.static(path.join(__dirname, config.server.publicDirectory)));
 
-	app.use('/', require('./routes/index')(db));
-	app.use('/users', require('./routes/users')(db));
-	app.use('/gallery', require('./routes/gallery')(db));
+	app.use('/', require(path.join(__dirname, config.server.routesDirectory, 'index'))(db));
+	app.use('/users', require(path.join(__dirname, config.server.routesDirectory, 'users'))(db));
+	app.use('/gallery', require(path.join(__dirname, config.server.routesDirectory, 'gallery'))(db));
+	app.use('/files', require(path.join(__dirname, config.server.routesDirectory, 'files'))(db));
+
+	app.use('/data/users', require(path.join(__dirname, config.server.routesDirectory, 'data/users'))(db));
+	app.use('/data/gallery', require(path.join(__dirname, config.server.routesDirectory, 'data/gallery'))(db));
+	app.use('/data/files', require(path.join(__dirname, config.server.routesDirectory, 'data/files'))(db));
 	
-	app.use('/data/users', require('./routes/data/users')(db));
-	app.use('/data/gallery', require('./routes/data/gallery')(db));
-
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
 	  var err = new Error('Not Found');
@@ -49,44 +52,37 @@ function create(db) {
             'Instead, enjoy this picture of a happy Dylan.'
         ];
         var index = ~~(Math.random() * pics.length);
-        console.log(index);
         var image = pics[index];
         var quote = quotes[index];
-        console.log(image);
-        console.log(quote);
         callback(image, quote);
     }
+
+    app.use(function(err, req, res, next) {
+    	if (!err.status) {
+    		console.error(err);
+    	}
+    	getImage(function(image, quote) {
+    		if (app.get('env') === 'development') {
+    			res.status(err.status || 500);
+    			res.render('dylan404', {
+    				message: err.message,
+    				error: err,
+    				image: image,
+    				quote: quote
+    			});
+    		}
+    		else {
+    			res.status(err.status || 500);
+    			res.render('dylan404', {
+    				message: err.message,
+    				error: {},
+    				image: image,
+    				quote: quote
+    			});
+    		}
+    	});
+    });
     
-	// development error handler
-	// will print stacktrace
-	if (app.get('env') === 'development') {
-	  app.use(function(err, req, res, next) {
-          getImage(function(image, quote) {
-	       res.status(err.status || 500);
-              res.render('dylan404', {
-                  message: err.message,
-                  error: err,
-                  image: image,
-                  quote: quote
-              });
-          });
-	  });
-	}
-
-	// production error handler
-	// no stacktraces leaked to user
-	app.use(function(err, req, res, next) {
-          getImage(function(image, quote) {
-	       res.status(err.status || 500);
-              res.render('dylan404', {
-                  message: err.message,
-                  error: {},
-                  image: image,
-                  quote: quote
-              });
-          });
-	});
-
 	return app;
 }
 

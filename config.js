@@ -5,7 +5,9 @@ var config = {
 			https: {
 				keyPath: '',
 				certPath: ''
-			}
+			},
+			publicDirectory: 'public',
+			routesDirectory: 'routes'
 		},    
 		db: {
 			hostname: 'localhost',
