@@ -6,10 +6,10 @@ module.exports = function(db) {
 
 	/* GET user list. */
 	router.get('/', function(req, res, next) {
-		db.collection(config.db.collections.users).find({}, { password: 0 }).toArray(function(err, result) {
+		db.collection(config.db.collections.users).find({}, { password: 0 }).sort({ firstName: 1 }).toArray(function(err, result) {
 			var list = [];
 			for (var r = 0; r < result.length; r++) {
-				list.push(result[r].username);
+				list.push({ username: result[r].username, firstName: result[r].firstName, lastName: result[r].lastName, nickname: result[r].nickname });
 			}
 			res.json(list);
 		});
