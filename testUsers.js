@@ -2,7 +2,7 @@ var bcrypt = require('bcrypt');
 
 var userData = [
                 new UserData('vontell', 'password', 'Aaron', 'Vontell', 'Bitch', 'vontell@mit.edu', '8608050050', '371', 2, 'http://avontell.com', 'Bristol', 'CT', 'USA'),
-                new UserData('ewadkins', 'password', 'Eric Wadkins', null, 'ewadkins@mit.edu', '6178395035', '371', 2, null, 'Winthrop', 'MA', 'USA')
+                new UserData('ewadkins', 'password', 'Eric', 'Wadkins', null, 'ewadkins@mit.edu', '6178395035', '371', 2, null, 'Winthrop', 'MA', 'USA')
                 ];
 
 function UserData(username, password, firstName, lastName, nickname, email, phone, room, year, homepage, city, state, country) {

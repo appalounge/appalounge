@@ -21,9 +21,9 @@ function create(db) {
 	app.use(cookieParser());
 	app.use(express.static(path.join(__dirname, 'public')));
 
-	app.use('/', require('./routes/views/index')(db));
-	app.use('/users', require('./routes/views/users')(db));
-	app.use('/gallery', require('./routes/views/gallery')(db));
+	app.use('/', require('./routes/index')(db));
+	app.use('/users', require('./routes/users')(db));
+	app.use('/gallery', require('./routes/gallery')(db));
 	
 	app.use('/data/users', require('./routes/data/users')(db));
 	app.use('/data/gallery', require('./routes/data/gallery')(db));
