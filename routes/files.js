@@ -5,7 +5,7 @@ module.exports = function(db){
 
 	/* GET home page. */
 	router.get('/*', function(req, res, next) {
-		res.render('files');
+		res.render('files', { path: decodeURI(req.path).slice(0, -1) });
 	});
 	
 	return router;

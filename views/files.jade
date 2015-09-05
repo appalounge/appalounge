@@ -32,13 +32,23 @@ html
                       a(href='/events') Events
         .container.marketing
           h2#title.needs-margin
-            | Uploads
+            | Files
             span.text-muted
-          h3#subtitle.text-muted Upload pictures or other files
+          h3#subtitle.text-muted files#{path}
           hr.featurette-divider
           // h3 class="text-muted" id="subtitle">Sorry, no photos yet!</h3
           div(id='files')
-                    
+          hr.featurette-divider
+          table
+            tr
+              td
+                form(action="/upload#{path}", method="post", enctype="multipart/form-data")
+                  input(type="file" name="file")
+                  input(type="submit", value="Upload")
+              td
+                input(type='text', id="folderName")
+                br
+                input(type="button", id="newFolder", value="New Folder")
           hr.featurette-divider
           // FOOTER
           footer

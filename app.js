@@ -5,6 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var busboy = require('connect-busboy');
 
 function create(db) {
 
@@ -19,6 +20,7 @@ function create(db) {
 	app.use(logger('dev'));
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
+	app.use(busboy());
 	app.use(cookieParser());
 	app.use(express.static(path.join(__dirname, config.server.publicDirectory)));
 
@@ -26,6 +28,9 @@ function create(db) {
 	app.use('/users', require(path.join(__dirname, config.server.routesDirectory, 'users'))(db));
 	app.use('/gallery', require(path.join(__dirname, config.server.routesDirectory, 'gallery'))(db));
 	app.use('/files', require(path.join(__dirname, config.server.routesDirectory, 'files'))(db));
+	app.use('/upload', require(path.join(__dirname, config.server.routesDirectory, 'upload'))(db));
+	app.use('/remove', require(path.join(__dirname, config.server.routesDirectory, 'remove'))(db));
+	app.use('/newfolder', require(path.join(__dirname, config.server.routesDirectory, 'newfolder'))(db));
 
 	app.use('/data/users', require(path.join(__dirname, config.server.routesDirectory, 'data/users'))(db));
 	app.use('/data/gallery', require(path.join(__dirname, config.server.routesDirectory, 'data/gallery'))(db));
