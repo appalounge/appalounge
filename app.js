@@ -65,6 +65,7 @@ function create(db) {
     app.use(function(err, req, res, next) {
     	if (!err.status) {
     		console.error(err);
+    		throw err;
     	}
     	getImage(function(image, quote) {
     		if (app.get('env') === 'development') {

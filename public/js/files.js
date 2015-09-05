@@ -1,6 +1,7 @@
 
 $(document).ready(function() {
-	$.get('/data' + location.pathname, function(files) {
+	$.get('/data' + location.pathname, function(response) {
+		var files = response;
 		if (files.length) {
 			$('#files').append('<table>');
 			$('#files').append('<tr>');
@@ -8,19 +9,21 @@ $(document).ready(function() {
 			$('#files').append('<td style="padding:5px;"><b>Size</b></td>');
 			$('#files').append('</tr>');
 			for (var i = 0; i < files.length; i++) {
+				var link = location.pathname;
+				link += (link[link.length - 1] === '/' ? '' : '/') + files[i].fileName;
 				$('#files').append('<tr style="background-color:' + (files[i].isDirectory ? '#ffffee' : '#ffffff') + '">');
 		        $('#files').append('<td style="padding:5px;"><b>' + files[i].fileName + '</b></td>');
-	            $('#files').append('<td style="padding:5px;">' + files[i].stats.size + ' bytes</td>');
+	            $('#files').append('<td style="padding:5px;">' + files[i].size + ' bytes</td>');
 	            if (!files[i].isDirectory) {
-	                $('#files').append('<td style="padding:5px;"><a target="blank" href="' + files[i].fileName + '"><b>View</b></a></td>');
-	                $('#files').append('<td style="padding:5px;"><a href="' + files[i].fileName + '" download><b>Download</b></a></td>');
+	                $('#files').append('<td style="padding:5px;"><a target="blank" href="' + link + '"><b>View</b></a></td>');
+	                $('#files').append('<td style="padding:5px;"><a href="' + link + '" download><b>Download</b></a></td>');
 	            }
 	            else {
-	                $('#files').append('<td style="padding:5px;"><a href="' + files[i].fileName + '"><b>Open</b></a></td>');
+	                $('#files').append('<td style="padding:5px;"><a href="' + link + '"><b>Open</b></a></td>');
 	                //$('#files').append('<td style="padding:5px;"><a href="' + files[i].fileName + '" download><b>Download</b></a></td>');
 	            }
 				$('#files').append('</tr>');
-	            $('#files').append('<td style="padding:5px;"><a href="' + location.pathname.replace('files', 'remove') + files[i].fileName + '"><b>Delete</b></a></td>');
+	            $('#files').append('<td style="padding:5px;"><a href="' + link.replace('files', 'remove') + '"><b>Delete</b></a></td>');
 			}
 			$('#files').append('</table>');
 		}
@@ -29,8 +32,13 @@ $(document).ready(function() {
 		}
 	});
 	
-	var path = $('#subtitle').text();
+	var path = decodeURI($('#subtitle').text());
 	var dirs = path.split('/');
+	for (var d = 0; d < dirs.length; d++) {
+		if (!dirs[d]) {
+			dirs.pop(d);
+		}
+	}
 	var current = dirs.pop();
 	var html = '';
 	for (var d = 0; d < dirs.length; d++) {
@@ -47,8 +55,9 @@ $(document).ready(function() {
 	$('#newFolder').click(function() {
 		var folderName = $('#folderName').val();
 		if (folderName) {
-			$.get(location.pathname.replace('files', 'newfolder') + folderName, function(json) {
-				console.log(json);
+			var link = location.pathname;
+			link += (link[link.length - 1] === '/' ? '' : '/') + folderName;
+			$.get(link.replace('files', 'newfolder'), function(json) {
 				location.href = json.redirect;
 			});
 		}

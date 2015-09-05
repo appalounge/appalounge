@@ -7,11 +7,9 @@ var fs = require('fs');
 module.exports = function(db) {
 
 	router.get('/*', function(req, res, next) {
-		var path = decodeURI(req.path);
-		console.log('test');
-		remove('./public/files' + path);
-		console.log('test');
-		res.redirect('/files' + path.substr(0, path.lastIndexOf('/')));
+		var reqpath = decodeURI(req.path);
+		remove(decodeURI(path.join('./', config.server.fileDirectory, reqpath)));
+		res.redirect(decodeURI(path.join('/files', reqpath.substr(0, reqpath.lastIndexOf('/')))));
 	});
 	
 	return router;

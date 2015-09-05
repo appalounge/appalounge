@@ -6,8 +6,10 @@ var config = {
 				keyPath: '',
 				certPath: ''
 			},
+			appDirectory: __dirname,
 			publicDirectory: 'public',
-			routesDirectory: 'routes'
+			routesDirectory: 'routes',
+			fileDirectory: 'public/files'
 		},    
 		db: {
 			hostname: 'localhost',
