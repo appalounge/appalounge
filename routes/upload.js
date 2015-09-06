@@ -32,8 +32,24 @@ function uploadFiles (req, res) {
     	}
     });
     req.busboy.on('finish', function () {
-        res.redirect('/files' + reqpath);
+        res.redirect('/files' + decodeURI(req.path + queryString(req.query)));
         //console.log('Done uploading!');
     });
+}
+
+function queryString(query) {
+    var str = '';
+    for (var key in query) {
+        if (query.hasOwnProperty(key)) {
+            if (str === '') {
+                str += '?';
+            }
+            else {
+                str += '&';
+            }
+            str += key + '=' + query[key];
+        }
+    }
+    return str;
 }
 

@@ -1,5 +1,10 @@
 
 $(document).ready(function() {
+	var uploadPath = '/upload' + location.pathname.replace('/files', '') + location.search;
+	/*if (uploadPath[uploadPath.length - 1] === '/') {
+		uploadPath = uploadPath.slice(0, -1);
+	}*/
+	$('#uploadForm').attr('action', uploadPath);
 	$.get('/data' + location.pathname + location.search, function(response) {
 		var files = response;
 		if (files.length) {
