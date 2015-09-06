@@ -22,55 +22,10 @@ function create(db) {
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(busboy());
 	app.use(cookieParser());
-	app.use(express.static(path.join(__dirname, config.server.publicDirectory)));
 	
 	// Authentication check
-	app.use(function(req, res, next) {
-		var restricted = [
-		                  '^/files'
-		                  ];
-		
-		var key = req.query.key;
-		// Check for authentication
-		var authenticated = false;
-		if (key) {
-			db.collection(config.db.collections.sessions).findOne({ key: key, ip: req.ip, expiration: { $gt: new Date() } }, function(err, result) {
-				if (err) {
-					console.error(err.toString());
-					res.redirect('/login?path=' + req.path);
-				}
-				else {
-					if (result) {
-						authenticated = true;
-					}
-					restrict(authenticated, result.username);
-				}
-			});	
-		}
-		else {
-			restrict(authenticated);
-		}
-		
-		function restrict(authenticated, user) {
-			// For use in other routes
-			if (authenticated) {
-				req.authentication = {
-						user: user
-				};
-			}
-			for (var r = 0; r < restricted.length; r++) {
-				if (req.path.match(restricted[r])) {
-					if (authenticated) {
-						return next();
-					}
-					else {
-						return res.redirect('/login?path=' + req.path);
-					}
-				}
-			}
-			next();
-		}
-	});
+	app.use(authenticationCheck);
+	app.use(express.static(path.join(__dirname, config.server.publicDirectory)));
 
 	app.use('/', require(path.join(__dirname, config.server.routesDirectory, 'index'))(db));
 	app.use('/login', require(path.join(__dirname, config.server.routesDirectory, 'login'))(db));
@@ -140,6 +95,54 @@ function create(db) {
     });
     
 	return app;
+
+	function authenticationCheck(req, res, next) {
+		var restricted = [
+		                  '^/files'
+		                  ];
+		
+		var key = req.query.key;
+		// Check for authentication
+		var authenticated = false;
+		if (key) {
+			db.collection(config.db.collections.sessions).findOne({ key: key, ip: req.ip, expiration: { $gt: new Date() } }, function(err, result) {
+				if (err) {
+					console.error(err.toString());
+					res.redirect('/login?path=' + req.path);
+				}
+				else {
+					if (result) {
+						authenticated = true;
+					}
+					restrict(authenticated, result.username);
+				}
+			});	
+		}
+		else {
+			restrict(authenticated);
+		}
+		
+		function restrict(authenticated, user) {
+			// For use in other routes
+			if (authenticated) {
+				req.authentication = {
+						user: user
+				};
+			}
+			for (var r = 0; r < restricted.length; r++) {
+				if (req.path.match(restricted[r])) {
+					if (authenticated) {
+						return next();
+					}
+					else {
+						return res.redirect('/login?path=' + req.path);
+					}
+				}
+			}
+			next();
+		}
+	}
+
 }
 
 module.exports = create;
