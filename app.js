@@ -36,6 +36,8 @@ function create(db) {
 	app.use('/remove', require(path.join(__dirname, config.server.routesDirectory, 'remove'))(db));
 	app.use('/newfolder', require(path.join(__dirname, config.server.routesDirectory, 'newfolder'))(db));
 
+	app.use('/data/announcements', require(path.join(__dirname, config.server.routesDirectory, 'data/announcements'))(db));
+	app.use('/data/session', require(path.join(__dirname, config.server.routesDirectory, 'data/session'))(db));
 	app.use('/data/login', require(path.join(__dirname, config.server.routesDirectory, 'data/login'))(db));
 	app.use('/data/users', require(path.join(__dirname, config.server.routesDirectory, 'data/users'))(db));
 	app.use('/data/gallery', require(path.join(__dirname, config.server.routesDirectory, 'data/gallery'))(db));
@@ -100,7 +102,6 @@ function create(db) {
 		var restricted = [
 		                  '^/files'
 		                  ];
-		
 		var key = req.query.key;
 		// Check for authentication
 		var authenticated = false;

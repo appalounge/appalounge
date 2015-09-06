@@ -10,7 +10,8 @@ var config = {
 			publicDirectory: 'public',
 			routesDirectory: 'routes',
 			fileDirectory: 'public/files',
-			loginExpirationMinutes: 60
+			loginExpirationMinutes: 60,
+			announcementsFile: 'announcements.txt'
 		},    
 		db: {
 			hostname: 'localhost',

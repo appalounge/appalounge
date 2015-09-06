@@ -4,6 +4,7 @@ html
     title #{username} - Appa Lounge
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='/js/common.js')
     script(src='/js/retainLogin.js')
     script(src='/js/userPage.js')
     link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
@@ -27,10 +28,12 @@ html
                       a(href='/', class='retainLogin') Home
                     li
                       a(href='/users', class='retainLogin') Members
-                    li.active
+                    li
                       a(href='/gallery', class='retainLogin') Gallery
                     li
                       a(href='/events', class='retainLogin') Events
+                    li
+                      a(href='/', class='float:right', id='loginlogout')
         .container.marketing
           hr.featurette-divider
           block content

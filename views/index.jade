@@ -4,8 +4,9 @@ html
     title Appa Lounge
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='/js/common.js')
     script(src='/js/retainLogin.js')
-    //script(src='/js/index.js')
+    script(src='/js/index.js')
     link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
 body
     div
@@ -23,21 +24,23 @@ body
                     p Appa Lounge
                 #navbar.navbar-collapse.collapse
                   ul.nav.navbar-nav
-                    li
+                    li.active
                       a(href='/', class='retainLogin') Home
                     li
                       a(href='/users', class='retainLogin') Members
-                    li.active
+                    li
                       a(href='/gallery', class='retainLogin') Gallery
                     li
                       a(href='/events', class='retainLogin') Events
+                    li
+                      a(href='/', class='float:right', id='loginlogout')
         .container.marketing
           h2#title.needs-margin(style="width:100%;text-align:center")
             | Welcome to Appa Lounge!
             span.text-muted
           h3#subtitle.text-muted(style="width:100%;text-align:center") A site dedicated to all things Appa
           .well(style="margin: 32px;")
-            p(style="text-align: center; font-size: 18px;") There are no announcements at this time
+            div(id='announcements')
           hr.featurette-divider
           .row
               .col-lg-4(style="text-align:center;")
