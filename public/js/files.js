@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-	$.get('/data' + location.pathname, function(response) {
+	$.get('/data' + location.pathname + location.search, function(response) {
 		var files = response;
 		if (files.length) {
 			$('#files').append('<table>');
@@ -9,7 +9,7 @@ $(document).ready(function() {
 			$('#files').append('<td style="padding:5px;"><b>Size</b></td>');
 			$('#files').append('</tr>');
 			for (var i = 0; i < files.length; i++) {
-				var link = location.pathname;
+				var link = location.pathname + location.search;
 				link += (link[link.length - 1] === '/' ? '' : '/') + files[i].fileName;
 				$('#files').append('<tr style="background-color:' + (files[i].isDirectory ? '#ffffee' : '#ffffff') + '">');
 		        $('#files').append('<td style="padding:5px;"><b>' + files[i].fileName + '</b></td>');
@@ -55,7 +55,7 @@ $(document).ready(function() {
 	$('#newFolder').click(function() {
 		var folderName = $('#folderName').val();
 		if (folderName) {
-			var link = location.pathname;
+			var link = location.pathname + location.search;
 			link += (link[link.length - 1] === '/' ? '' : '/') + folderName;
 			$.get(link.replace('files', 'newfolder'), function(json) {
 				location.href = json.redirect;

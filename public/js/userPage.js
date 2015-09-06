@@ -1,7 +1,7 @@
 
 $(function() {
 	var user = location.href.slice(location.href.lastIndexOf('/') + 1);
-	$.get('/data/users/' + user, function(data) {
+	$.get('/data/users/' + user + location.search, function(data) {
 		$('#fullName').html(data.firstName + ' ' + (data.nickname ? '"' + data.nickname + '" ' : '') + data.lastName);
         $('#username').html(data.username);
         var profileSrc = data.profilePic ? data.profilePic : '/images/profileDefault.jpg';

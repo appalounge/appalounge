@@ -4,6 +4,7 @@ html
     title #{username} - Appa Lounge
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='/js/retainLogin.js')
     script(src='/js/userPage.js')
     link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
   body
@@ -18,18 +19,18 @@ html
                     span.icon-bar
                     span.icon-bar
                     span.icon-bar
-                  a.navbar-brand(href='/')
+                  a.navbar-brand(href='/', class='retainLogin')
                     p Appa Lounge
                 #navbar.navbar-collapse.collapse
                   ul.nav.navbar-nav
                     li
-                      a(href='/') Home
+                      a(href='/', class='retainLogin') Home
+                    li
+                      a(href='/users', class='retainLogin') Members
                     li.active
-                      a(href='/users') Members
+                      a(href='/gallery', class='retainLogin') Gallery
                     li
-                      a(href='/gallery') Gallery
-                    li
-                      a(href='/events') Events
+                      a(href='/events', class='retainLogin') Events
         .container.marketing
           h2#title.needs-margin(style="width:100%;text-align:center")
             div(id="userPicture")
@@ -45,7 +46,9 @@ html
               a(href='#') Back to top
             p
               | © 2015 Appa Lounge · 
-              a(href='privacy.html') Simmons DB
+              a(href='privacy.html', class='retainLogin') Privacy
+              |  · 
+              a(href='terms.html', class='retainLogin') Terms
         //
           Bootstrap core JavaScript
           ==================================================

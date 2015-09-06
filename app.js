@@ -23,8 +23,54 @@ function create(db) {
 	app.use(busboy());
 	app.use(cookieParser());
 	app.use(express.static(path.join(__dirname, config.server.publicDirectory)));
+	
+	// Authentication check
+	app.use(function(req, res, next) {
+		var restricted = [
+		                  '/users',
+		                  '/gallery'
+		                  ];
+		
+		var key = req.query.key;
+		// Check for authentication
+		var authenticated = false;
+		if (key) {
+			db.collection(config.db.collections.sessions).findOne({ key: key, ip: req.ip, expiration: { $gt: new Date() } }, function(err, result) {
+				if (err) {
+					console.error(err.toString());
+					res.redirect('/login?path=' + req.path);
+				}
+				else {
+					if (result) {
+						authenticated = true;
+					}
+					restrict(authenticated);
+				}
+			});	
+		}
+		else {
+			restrict(authenticated);
+		}
+		
+		function restrict(authenticated) {
+			// For use in other routes
+			req.isAuthenticated = authenticated;
+			for (var r = 0; r < restricted.length; r++) {
+				if (req.path.match(restricted[r])) {
+					if (authenticated) {
+						return next();
+					}
+					else {
+						return res.redirect('/login?path=' + req.path);
+					}
+				}
+			}
+			next();
+		}
+	});
 
 	app.use('/', require(path.join(__dirname, config.server.routesDirectory, 'index'))(db));
+	app.use('/login', require(path.join(__dirname, config.server.routesDirectory, 'login'))(db));
 	app.use('/users', require(path.join(__dirname, config.server.routesDirectory, 'users'))(db));
 	app.use('/gallery', require(path.join(__dirname, config.server.routesDirectory, 'gallery'))(db));
 	app.use('/files', require(path.join(__dirname, config.server.routesDirectory, 'files'))(db));
@@ -32,6 +78,7 @@ function create(db) {
 	app.use('/remove', require(path.join(__dirname, config.server.routesDirectory, 'remove'))(db));
 	app.use('/newfolder', require(path.join(__dirname, config.server.routesDirectory, 'newfolder'))(db));
 
+	app.use('/data/login', require(path.join(__dirname, config.server.routesDirectory, 'data/login'))(db));
 	app.use('/data/users', require(path.join(__dirname, config.server.routesDirectory, 'data/users'))(db));
 	app.use('/data/gallery', require(path.join(__dirname, config.server.routesDirectory, 'data/gallery'))(db));
 	app.use('/data/files', require(path.join(__dirname, config.server.routesDirectory, 'data/files'))(db));

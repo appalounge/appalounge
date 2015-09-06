@@ -9,7 +9,8 @@ var config = {
 			appDirectory: __dirname,
 			publicDirectory: 'public',
 			routesDirectory: 'routes',
-			fileDirectory: 'public/files'
+			fileDirectory: 'public/files',
+			loginExpirationMinutes: 60
 		},    
 		db: {
 			hostname: 'localhost',
@@ -24,6 +25,7 @@ var config = {
 	        },
 	        collections: {
 	        	users: 'users',
+	        	sessions: 'sessions'
 	        }
 	    }
 }
