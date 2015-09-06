@@ -9,8 +9,8 @@ $(document).ready(function() {
 			$('#files').append('<td style="padding:5px;"><b>Size</b></td>');
 			$('#files').append('</tr>');
 			for (var i = 0; i < files.length; i++) {
-				var link = location.pathname + location.search;
-				link += (link[link.length - 1] === '/' ? '' : '/') + files[i].fileName;
+				var link = location.pathname;
+				link += (link[link.length - 1] === '/' ? '' : '/') + files[i].fileName + location.search;
 				$('#files').append('<tr style="background-color:' + (files[i].isDirectory ? '#ffffee' : '#ffffff') + '">');
 		        $('#files').append('<td style="padding:5px;"><b>' + files[i].fileName + '</b></td>');
 	            $('#files').append('<td style="padding:5px;">' + files[i].size + ' bytes</td>');
@@ -32,7 +32,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	var path = decodeURI($('#subtitle').text());
+	var path = decodeURI(location.pathname).slice(1);//decodeURI($('#subtitle').text());
 	var dirs = path.split('/');
 	for (var d = 0; d < dirs.length; d++) {
 		if (!dirs[d]) {
@@ -47,6 +47,7 @@ $(document).ready(function() {
 		for (var e = 0; e <= d; e++) {
 			parentPath += '/' + dirs[e];
 		}
+		parentPath += location.search;
 		html += '<a href="' + parentPath + '">' + dir + '</a>/';
 	}
 	html += current;
@@ -55,8 +56,8 @@ $(document).ready(function() {
 	$('#newFolder').click(function() {
 		var folderName = $('#folderName').val();
 		if (folderName) {
-			var link = location.pathname + location.search;
-			link += (link[link.length - 1] === '/' ? '' : '/') + folderName;
+			var link = location.pathname;
+			link += (link[link.length - 1] === '/' ? '' : '/') + folderName + location.search;
 			$.get(link.replace('files', 'newfolder'), function(json) {
 				location.href = json.redirect;
 			});

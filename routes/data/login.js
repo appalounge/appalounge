@@ -22,7 +22,7 @@ module.exports = function(db) {
 						var key2 = Math.random().toString(36).slice(2);
 						var key = key1 + key2;
 						var expiration = new Date(new Date().getTime() + 1000 * 60 * config.server.loginExpirationMinutes);
-						var doc = { key: key, ip: req.ip, expiration: expiration };
+						var doc = { key: key, username: username, loginDate: new Date(), ip: req.ip, expiration: expiration };
 						db.collection(config.db.collections.sessions).insert(doc, function(err) {
 							if (err) {
 								console.error(err.toString());

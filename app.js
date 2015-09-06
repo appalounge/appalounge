@@ -27,8 +27,7 @@ function create(db) {
 	// Authentication check
 	app.use(function(req, res, next) {
 		var restricted = [
-		                  '/users',
-		                  '/gallery'
+		                  '^/files'
 		                  ];
 		
 		var key = req.query.key;
@@ -44,7 +43,7 @@ function create(db) {
 					if (result) {
 						authenticated = true;
 					}
-					restrict(authenticated);
+					restrict(authenticated, result.username);
 				}
 			});	
 		}
@@ -52,9 +51,13 @@ function create(db) {
 			restrict(authenticated);
 		}
 		
-		function restrict(authenticated) {
+		function restrict(authenticated, user) {
 			// For use in other routes
-			req.isAuthenticated = authenticated;
+			if (authenticated) {
+				req.authentication = {
+						user: user
+				};
+			}
 			for (var r = 0; r < restricted.length; r++) {
 				if (req.path.match(restricted[r])) {
 					if (authenticated) {

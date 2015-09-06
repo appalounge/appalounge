@@ -10,7 +10,7 @@ module.exports = function(db){
 	router.get('/*', function(req, res, next) {
 		var reqpath = decodeURI(req.path);
 		if (fs.lstatSync(decodeURI(path.join('./', config.server.fileDirectory, reqpath))).isDirectory()) {
-			res.render('files', { path: reqpath });
+			res.render('files');
 		}
 		else {
 			res.sendFile(decodeURI(path.join(config.server.appDirectory, config.server.fileDirectory, reqpath)));
