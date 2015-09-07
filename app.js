@@ -109,7 +109,7 @@ function create(db) {
 			db.collection(config.db.collections.sessions).findOne({ key: key, ip: req.ip, expiration: { $gt: new Date() } }, function(err, result) {
 				if (err) {
 					console.error(err.toString());
-					res.redirect('/login?path=' + req.path);
+					res.redirect('/login?required=1&path=' + req.path);
 				}
 				else {
 					if (result) {
@@ -136,7 +136,7 @@ function create(db) {
 						return next();
 					}
 					else {
-						return res.redirect('/login?path=' + req.path);
+						return res.redirect('/login?required=1&path=' + req.path);
 					}
 				}
 			}

@@ -1,11 +1,14 @@
 
 $(function() {
+	var query = getQueryVars();
+	if (query.required && query.required == 1) {
+		$('#subtitle').text('You must login to access this page');
+	}
 	$('#login').click(function() {
 		var username = $('#username').val();
 		var password = $('#password').val();
 		$.get('/data/login?username=' + username + '&password=' + password, function(json) {
 			if (json.key) {
-				var query = getQueryVars();
 				var path = '/';
 				if (query.path) {
 					path = query.path;

@@ -32,13 +32,15 @@ html
                       a(href='/gallery', class='retainLogin') Gallery
                     li
                       a(href='/events', class='retainLogin') Events
+                    li
+                      a(href='/files', class='retainLogin') Files
                     li.active
                       a(href='/', class='float:right', id='loginlogout')
         .container.marketing
           h2#title.needs-margin
             | Login
             span.text-muted
-          h3#subtitle.text-muted You must log in to access this page
+          h3#subtitle.text-muted
           hr.featurette-divider
           // h3 class="text-muted" id="subtitle">Sorry, no photos yet!</h3
           div Username: 
@@ -53,7 +55,6 @@ html
           br
           br
           div(id='errorMessage')
-          hr.featurette-divider
           // FOOTER
           footer
             p.pull-right

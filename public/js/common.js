@@ -7,7 +7,10 @@ $(function() {
 		}
 		else {
 			$('#loginlogout').text('Login');
-			$('#loginlogout').attr('href', '/login');
+			$('#loginlogout').attr('href', '/login?path=' + location.pathname);
+			// Exists on some pages
+			$('#loginMessage').append('<hr class="featurette-divider"/>');
+			$('#loginMessage').append('<div style="text-align:center"><a href="/login?path=' + location.pathname + '">Login</a> to view more</div>');
 		}
 	});
 });
@@ -29,3 +32,4 @@ function removeParam(sourceURL, key) {
     }
     return rtn;
 }
+
