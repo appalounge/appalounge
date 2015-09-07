@@ -123,11 +123,11 @@ function create(db) {
 			restrict(authenticated);
 		}
 		
-		function restrict(authenticated, user) {
+		function restrict(authenticated, username) {
 			// For use in other routes
 			if (authenticated) {
 				req.authentication = {
-						user: user
+						username: username
 				};
 			}
 			for (var r = 0; r < restricted.length; r++) {

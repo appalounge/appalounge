@@ -1,7 +1,7 @@
 
 $(function() {
 	$('.retainLogin').each(function() {
-		var remove = [ 'path' ];
+		var remove = [ 'path', 'required' ];
 		var newHref = $(this).attr('href') + location.search;
 		for (var r = 0; r < remove.length; r++) {
 			newHref = removeParam(newHref, remove[r]);

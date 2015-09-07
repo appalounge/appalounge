@@ -35,7 +35,7 @@ html
                     li
                       a(href='/files', class='retainLogin') Files
                     li.active
-                      a(href='/', class='float:right', id='loginlogout')
+                      a(href='/', id='loginlogout')
         .container.marketing
           h2#title.needs-margin
             | Login
@@ -51,7 +51,7 @@ html
           input(type='password', id="password")
           br
           br
-          input(type="button", id="login", value="Login")
+          input(type="button", id="login", class='btn btn-info', value="Login")
           br
           br
           div(id='errorMessage')

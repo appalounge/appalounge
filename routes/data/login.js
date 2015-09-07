@@ -16,7 +16,7 @@ module.exports = function(db) {
 					console.error(err.toString());
 					res.json({ error: 'Database query failed' });
 				}
-				else {
+				else if (result) {
 					if(bcrypt.compareSync(password, result.password)) {
 						var key1 = Math.random().toString(36).slice(2);
 						var key2 = Math.random().toString(36).slice(2);
@@ -36,6 +36,9 @@ module.exports = function(db) {
 					else {
 						res.json({ error: 'Incorrect username or password' });
 					}
+				}
+				else {
+					res.json({ error: 'Incorrect username or password' });
 				}
 			});
 		}

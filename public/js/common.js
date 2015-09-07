@@ -2,12 +2,17 @@
 $(function() {
 	$.get('/data/session' + location.search, function(response) {
 		if (response) {
-			$('#loginlogout').text('Logout (' + response.user + ')');
+			document.appaData = {
+					username: response.username
+			};
+			
+			$('#loginlogout').text('Logout (' + response.username + ')');
 			$('#loginlogout').attr('href', removeParam(location.pathname + location.search, 'key'));
 		}
 		else {
 			$('#loginlogout').text('Login');
 			$('#loginlogout').attr('href', '/login?path=' + location.pathname);
+			
 			// Exists on some pages
 			$('#loginMessage').append('<hr class="featurette-divider"/>');
 			$('#loginMessage').append('<div style="text-align:center"><a href="/login?path=' + location.pathname + '">Login</a> to view more</div>');
