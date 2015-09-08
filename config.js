@@ -11,7 +11,7 @@ var config = {
 			routesDirectory: 'routes',
 			fileDirectory: 'public/files',
 			loginExpirationMinutes: 60,
-			chatTimeout: 5000,
+			chatTimeout: 2000,
 			announcementsFile: 'announcements.txt'
 		},    
 		db: {
