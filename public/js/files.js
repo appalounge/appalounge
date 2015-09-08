@@ -58,7 +58,8 @@ $(document).ready(function() {
 	html += current;
 	$('#subtitle').html(html);
 	
-	$('#newFolder').click(function() {
+	$('#newFolderForm').submit(function(event) {
+		event.preventDefault();
 		var folderName = $('#folderName').val();
 		if (folderName) {
 			var link = location.pathname;

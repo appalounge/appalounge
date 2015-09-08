@@ -1,14 +1,14 @@
 doctype html
 html
   head
-    title Appa Lounge
+    title Chat - Appa Lounge
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(src='/js/common.js')
     script(src='/js/retainLogin.js')
-    script(src='/js/index.js')
+    script(src='/js/chat.js')
     link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
-body
+  body
     div
         .navbar-wrapper
           .container
@@ -24,7 +24,7 @@ body
                     p Appa Lounge
                 #navbar.navbar-collapse.collapse
                   ul.nav.navbar-nav
-                    li.active
+                    li
                       a(href='/', class='retainLogin') Home
                     li
                       a(href='/users', class='retainLogin') Members
@@ -32,43 +32,24 @@ body
                       a(href='/gallery', class='retainLogin') Gallery
                     li
                       a(href='/events', class='retainLogin') Events
-                    li
+                    li.active
                       a(href='/chat', class='retainLogin') Chat
                     li
                       a(href='/files', class='retainLogin') Files
                     li
                       a(href='/', id='loginlogout')
         .container.marketing
-          h2#title.needs-margin(style="width:100%;text-align:center")
-            | Welcome to Appa Lounge!
+          h2#title.needs-margin
+            | Chat
             span.text-muted
-          h3#subtitle.text-muted(style="width:100%;text-align:center") A site dedicated to all things Appa
-          .well(style="margin: 32px;")
-            div(id='announcements')
+          //h3#subtitle.text-muted Chat
           hr.featurette-divider
-          .row
-              .col-lg-4(style="text-align:center;")
-                img.img-circle(src='/images/appa_group.jpg', alt='Generic placeholder image', width='180', height='180')
-                h2 Members
-                p
-                  | Click here to learn more about the people in Appa Lounge, and see how they make it the greatest lounge in Simmons!
-                p
-                  a.btn.btn-default(href='/users', class='retainLogin', role='button') View members »
-              .col-lg-4(style="text-align:center;")
-                img.img-circle(src='/images/profileDefault.jpg', alt='Generic placeholder image', width='180', height='180')
-                h2 Gallery
-                p
-                  | We have a comprehensive pile of inside jokes, images of our lounge having fun, and the dankest memes you will ever see!
-                p
-                  a.btn.btn-default(href='/gallery', class='retainLogin', role='button') View gallery »
-              .col-lg-4(style="text-align:center;")
-                img.img-circle(src='/images/11989105_883896211686452_401753163_n.gif', alt='Generic placeholder image', width='180', height='180')
-                h2 Events
-                p
-                  | Our lounge likes to plan a lot of events; click here to learn more about them and figure out what our lounge is all about!
-                p
-                  a.btn.btn-default(href='/events', class='retainLogin', role='button') View events »
-          .container
+          // h3 class="text-muted" id="subtitle">Sorry, no photos yet!</h3
+          div(id='chatDisplay', style='width:400px;height:200px;overflow-y:scroll;border:1px solid #000000;resize:both;')
+          br
+          form(id='chatForm')
+            input(type='text', id="chatMessage")
+            input(type="submit", id="chat", value="Send")
           hr.featurette-divider
           // FOOTER
           footer
@@ -84,3 +65,8 @@ body
           ==================================================
         // Placed at the end of the document so the pages load faster
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+        //script(src='js/bootstrap.min.js')
+        //script(src='js/docs.min.js')
+        // IE10 viewport hack for Surface/desktop Windows 8 bug
+        //script(src='js/ie10-viewport-bug-workaround.js')
+    

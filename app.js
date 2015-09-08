@@ -31,6 +31,7 @@ function create(db) {
 	app.use('/login', require(path.join(__dirname, config.server.routesDirectory, 'login'))(db));
 	app.use('/users', require(path.join(__dirname, config.server.routesDirectory, 'users'))(db));
 	app.use('/gallery', require(path.join(__dirname, config.server.routesDirectory, 'gallery'))(db));
+	app.use('/chat', require(path.join(__dirname, config.server.routesDirectory, 'chat'))(db));
 	app.use('/files', require(path.join(__dirname, config.server.routesDirectory, 'files'))(db));
 	app.use('/upload', require(path.join(__dirname, config.server.routesDirectory, 'upload'))(db));
 	app.use('/remove', require(path.join(__dirname, config.server.routesDirectory, 'remove'))(db));
@@ -41,6 +42,7 @@ function create(db) {
 	app.use('/data/login', require(path.join(__dirname, config.server.routesDirectory, 'data/login'))(db));
 	app.use('/data/users', require(path.join(__dirname, config.server.routesDirectory, 'data/users'))(db));
 	app.use('/data/gallery', require(path.join(__dirname, config.server.routesDirectory, 'data/gallery'))(db));
+	app.use('/data/chat', require(path.join(__dirname, config.server.routesDirectory, 'data/chat'))(db));
 	app.use('/data/files', require(path.join(__dirname, config.server.routesDirectory, 'data/files'))(db));
 	
 	// catch 404 and forward to error handler

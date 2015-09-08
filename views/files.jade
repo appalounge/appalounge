@@ -32,6 +32,8 @@ html
                       a(href='/gallery', class='retainLogin') Gallery
                     li
                       a(href='/events', class='retainLogin') Events
+                    li
+                      a(href='/chat', class='retainLogin') Chat
                     li.active
                       a(href='/files', class='retainLogin') Files
                     li
@@ -52,9 +54,10 @@ html
                   input(type="file" name="file")
                   input(type="submit", value="Upload")
               td
-                input(type='text', id="folderName")
-                br
-                input(type="button", id="newFolder", value="New Folder")
+                form(id='newFolderForm')
+                  input(type='text', id="folderName")
+                  br
+                  input(type="submit", id="newFolder", value="New Folder")
           hr.featurette-divider
           // FOOTER
           footer

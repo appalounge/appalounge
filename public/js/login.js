@@ -4,10 +4,11 @@ $(function() {
 	if (query.required && query.required == 1) {
 		$('#subtitle').text('You must login to access this page');
 	}
-	$('#login').click(function() {
+	$('#loginForm').submit(function(event) {
+		event.preventDefault();
 		var username = $('#username').val();
 		var password = $('#password').val();
-		$.get('/data/login?username=' + username + '&password=' + password, function(json) {
+		$.post('/data/login', { username: username, password: password }, function(json) {
 			if (json.key) {
 				var path = '/';
 				if (query.path) {

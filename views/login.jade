@@ -33,6 +33,8 @@ html
                     li
                       a(href='/events', class='retainLogin') Events
                     li
+                      a(href='/chat', class='retainLogin') Chat
+                    li
                       a(href='/files', class='retainLogin') Files
                     li.active
                       a(href='/', id='loginlogout')
@@ -43,18 +45,19 @@ html
           h3#subtitle.text-muted
           hr.featurette-divider
           // h3 class="text-muted" id="subtitle">Sorry, no photos yet!</h3
-          div Username: 
-          input(type='text', id="username")
-          br
-          br
-          div Password: 
-          input(type='password', id="password")
-          br
-          br
-          input(type="button", id="login", class='btn btn-info', value="Login")
-          br
-          br
-          div(id='errorMessage')
+          form(id='loginForm')
+            div Username: 
+            input(type='text', id="username")
+            br
+            br
+            div Password: 
+            input(type='password', id="password")
+            br
+            br
+            input(type="submit", id="login", class='btn btn-info', value="Login")
+            br
+            br
+            div(id='errorMessage')
           // FOOTER
           footer
             p.pull-right

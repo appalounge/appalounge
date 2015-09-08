@@ -5,12 +5,10 @@ var bcrypt = require('bcrypt');
 
 module.exports = function(db) {
 
-	router.get('/', function(req, res, next) {
-		var username = req.query.username;
-		var password = req.query.password;
+	router.post('/', function(req, res, next) {
+		var username = req.body.username;
+		var password = req.body.password;
 		if (username && password) {
-			console.log(username);
-			console.log(password);
 			db.collection(config.db.collections.users).findOne({ username: username }, function(err, result) {
 				if (err) {
 					console.error(err.toString());
