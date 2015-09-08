@@ -28,7 +28,7 @@ function uploadFiles (req, res) {
             //console.log('Upload complete! Saved to ' + filename);
     	}
     	else {
-            res.redirect('/files' + reqpath);
+            res.redirect('/files' + decodeURI(req.path + queryString(req.query)));
     	}
     });
     req.busboy.on('finish', function () {

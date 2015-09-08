@@ -28,38 +28,55 @@ module.exports = function(db) {
 
 function uploadFiles (req, res) {
 	var user = req.path.slice(req.path.lastIndexOf('/') + 1);
-	var reqpath = decodeURI(req.path);
-    var fstream;
-    req.pipe(req.busboy);
-    req.busboy.on('file', function (fieldname, file, filename) {
-    	if (filename) {
-            if (!fs.existsSync('./' + config.server.profilePicDirectory)) {
-                fs.mkdirSync('./' + config.server.profilePicDirectory);
-            }
-    		var contents = fs.readdirSync(path.join('./', config.server.profilePicDirectory));
-    		for (var i = 0; i < contents.length; i++) {
-    			if (contents[i].match('^' + user + '\..*$') || contents[i].match('^' + user + '$')) {
-    				fs.unlinkSync(path.join('./', config.server.profilePicDirectory, contents[i]));
-    			}
-    		}
-            var extension = '';
-            var index = filename.lastIndexOf('.');
-            if (index !== -1) {
-            	extension = filename.slice(index);
-            }
-            filename = user + extension;
-            fstream = fs.createWriteStream('./' + config.server.profilePicDirectory + '/' + filename);
-            file.pipe(fstream);
-            //console.log('Upload complete! Saved to ' + filename);
-    	}
+	if (req.authentication) {
+		var admins = config.server.admins;
+		var admin = false;
+		for (var a = 0; a < admins.length; a++) {
+			if (req.authentication.user = admins[a]) {
+				admin = true;
+			}
+		}
+		if (req.authentication.username === user || admin) {
+			var reqpath = decodeURI(req.path);
+		    var fstream;
+		    req.pipe(req.busboy);
+		    req.busboy.on('file', function (fieldname, file, filename) {
+		    	if (filename) {
+		            if (!fs.existsSync('./' + config.server.profilePicDirectory)) {
+		                fs.mkdirSync('./' + config.server.profilePicDirectory);
+		            }
+		    		var contents = fs.readdirSync(path.join('./', config.server.profilePicDirectory));
+		    		for (var i = 0; i < contents.length; i++) {
+		    			if (contents[i].match('^' + user + '\..*$') || contents[i].match('^' + user + '$')) {
+		    				fs.unlinkSync(path.join('./', config.server.profilePicDirectory, contents[i]));
+		    			}
+		    		}
+		            var extension = '';
+		            var index = filename.lastIndexOf('.');
+		            if (index !== -1) {
+		            	extension = filename.slice(index);
+		            }
+		            filename = user + extension;
+		            fstream = fs.createWriteStream('./' + config.server.profilePicDirectory + '/' + filename);
+		            file.pipe(fstream);
+		            //console.log('Upload complete! Saved to ' + filename);
+		    	}
+		    	else {
+		            res.redirect('/users' + decodeURI(req.path + queryString(req.query)));
+		    	}
+		    });
+		    req.busboy.on('finish', function () {
+		        res.redirect('/users' + decodeURI(req.path + queryString(req.query)));
+		        //console.log('Done uploading!');
+		    });
+		}
     	else {
-            res.redirect('/users' + reqpath);
+            res.redirect('/users' + decodeURI(req.path + queryString(req.query)));
     	}
-    });
-    req.busboy.on('finish', function () {
+	}
+	else {
         res.redirect('/users' + decodeURI(req.path + queryString(req.query)));
-        //console.log('Done uploading!');
-    });
+	}
 }
 
 function queryString(query) {

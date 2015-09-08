@@ -6,6 +6,7 @@ $(function() {
 		str = str.substring(0, index);
 	}
 	var user = str.slice(str.lastIndexOf('/') + 1);
+    $('#userPicture').append('<img class="img-circle hvr-grow-rotate" src="/profilepic/' + user + location.search + '" style="width: 300px; height: 300px; margin-bottom: 32px;"></img>');
 	var uploadPath = '/profilepic/' + user + location.search;
 	$('#profilePicForm').attr('action', uploadPath);
 	$('#profilePicForm').attr('action', uploadPath);

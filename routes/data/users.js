@@ -55,7 +55,7 @@ module.exports = function(db) {
 				                  'nickname',
 				                  'email',
 				                  'phone',
-				                  //'room',
+				                  'room',
 				                  'year',
 				                  'homepage',
 				                  'city',

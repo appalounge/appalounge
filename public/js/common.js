@@ -20,7 +20,7 @@ $(function() {
 			if (response) {
 				if (user === response.username || response.admin) {
 					$('#userPageFooterMessage').append('<hr class="featurette-divider"/>');
-					$('#userPageFooterMessage').append('<div style="text-align:center"><a href="' + location.pathname.replace('users', 'users/edit') + location.search + '">Click here</a> to edit this page</div>');
+					$('#userPageFooterMessage').append('<div style="text-align:center"><a href="' + location.pathname.replace('users', 'users/edit') + location.search + '">Edit</a> this information</div>');
 				}
 			}
 			else {
