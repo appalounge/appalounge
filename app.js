@@ -148,6 +148,12 @@ function create(db) {
 					if (result) {
 						authenticated = true;
 						restrict(authenticated, result.username);
+						var expiration = new Date(new Date().getTime() + 1000 * 60 * config.server.loginExpirationMinutes);
+						db.collection(config.db.collections.sessions).update({ key: key }, { $set: { expiration: expiration } }, function(err2) {
+							if (err2) {
+								logger.error(err2.toString());
+							}
+						});
 					}
 					else {
 						restrict(authenticated);
