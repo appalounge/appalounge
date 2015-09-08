@@ -48,8 +48,7 @@ function create(db) {
 	app.use(morgan('dev', { stream: logger.stream }));
 
 	// uncomment after placing your favicon in /public
-	//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-	//app.use(logger('dev'));
+	//app.use(favicon(path.join(__dirname, 'public/images/favicon.ico')));
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(busboy());
@@ -148,8 +147,11 @@ function create(db) {
 				else {
 					if (result) {
 						authenticated = true;
+						restrict(authenticated, result.username);
 					}
-					restrict(authenticated, result.username);
+					else {
+						restrict(authenticated);
+					}
 				}
 			});	
 		}
