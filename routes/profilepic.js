@@ -8,6 +8,9 @@ module.exports = function(db) {
 
 	router.get('/*', function(req, res, next) {
 		var user = req.path.slice(req.path.lastIndexOf('/') + 1);
+        if (!fs.existsSync('./' + config.server.profilePicDirectory)) {
+            fs.mkdirSync('./' + config.server.profilePicDirectory);
+        }
 		var contents = fs.readdirSync(path.join('./', config.server.profilePicDirectory));
 		var pics = [];
 		for (var i = 0; i < contents.length; i++) {
