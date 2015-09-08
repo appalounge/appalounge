@@ -67,6 +67,7 @@ function create(db) {
 	app.use('/upload', require(path.join(__dirname, config.server.routesDirectory, 'upload'))(db));
 	app.use('/remove', require(path.join(__dirname, config.server.routesDirectory, 'remove'))(db));
 	app.use('/newfolder', require(path.join(__dirname, config.server.routesDirectory, 'newfolder'))(db));
+	app.use('/profilepic', require(path.join(__dirname, config.server.routesDirectory, 'profilepic'))(db));
 
 	app.use('/data/announcements', require(path.join(__dirname, config.server.routesDirectory, 'data/announcements'))(db));
 	app.use('/data/session', require(path.join(__dirname, config.server.routesDirectory, 'data/session'))(db));
@@ -168,9 +169,17 @@ function create(db) {
 		function restrict(authenticated, username) {
 			// For use in other routes
 			if (authenticated) {
+				var admins = config.server.admins;
+				var admin = false;
+				for (var a = 0; a < admins.length; a++) {
+					if (username === admins[a]) {
+						admin = true;
+					}
+				}
 				req.authentication = {
 						username: username,
-						ip: req.ip
+						ip: req.ip,
+						admin: admin
 				};
 			}
 			for (var r = 0; r < restricted.length; r++) {

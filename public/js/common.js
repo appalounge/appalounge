@@ -2,20 +2,31 @@
 $(function() {
 	$.get('/data/session' + location.search, function(response) {
 		if (response) {
-			document.appaData = {
-					username: response.username
-			};
-			
 			$('#loginlogout').text('Logout (' + response.username + ')');
 			$('#loginlogout').attr('href', removeParam(location.pathname + location.search, 'key'));
 		}
 		else {
 			$('#loginlogout').text('Login');
 			$('#loginlogout').attr('href', '/login?path=' + location.pathname);
-			
-			// Exists on some pages
-			$('#loginMessage').append('<hr class="featurette-divider"/>');
-			$('#loginMessage').append('<div style="text-align:center"><a href="/login?path=' + location.pathname + '">Login</a> to view more</div>');
+		}
+
+		if (location.pathname.match('^/users/[a-zA-Z0-9]+')) {
+			var str = location.href;
+			var index = str.indexOf('?');
+			if (index !== -1) {
+				str = str.substring(0, index);
+			}
+			var user = str.slice(str.lastIndexOf('/') + 1);
+			if (response) {
+				if (user === response.username || response.admin) {
+					$('#userPageFooterMessage').append('<hr class="featurette-divider"/>');
+					$('#userPageFooterMessage').append('<div style="text-align:center"><a href="' + location.pathname.replace('users', 'users/edit') + location.search + '">Click here</a> to edit this page</div>');
+				}
+			}
+			else {
+				$('#userPageFooterMessage').append('<hr class="featurette-divider"/>');
+				$('#userPageFooterMessage').append('<div style="text-align:center"><a href="/login?path=' + location.pathname + '">Login</a> to view more</div>');
+			}
 		}
 	});
 });

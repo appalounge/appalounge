@@ -12,6 +12,21 @@ module.exports = function(db) {
 	});
 
 	/* GET user data. */
+	router.get('/edit/*', function(req, res, next) {
+		var user = req.path.slice(req.path.lastIndexOf('/') + 1);
+		db.collection(config.db.collections.users).findOne({ username: user }, { username: 1 }, function(err, result) {
+			if (result) {
+				res.render('editUser', result);
+			}
+			else {
+	            var err = new Error('Not Found');
+	            err.status = 404;
+                next(err);
+			}
+		});
+	});
+
+	/* GET user data. */
 	router.get('/*', function(req, res, next) {
 		var user = req.path.slice(req.path.lastIndexOf('/') + 1);
 		db.collection(config.db.collections.users).findOne({ username: user }, { username: 1 }, function(err, result) {
@@ -19,12 +34,6 @@ module.exports = function(db) {
 				res.render('userPage', result);
 			}
 			else {
-				/*var err = new Error('Not Found');
-				err.status = 404;
-			    res.render('error', {
-			    	message: err.message,
-			    	error: err
-			    });*/
 	            var err = new Error('Not Found');
 	            err.status = 404;
                 next(err);
