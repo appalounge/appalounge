@@ -10,6 +10,7 @@ var config = {
 			publicDirectory: 'public',
 			routesDirectory: 'routes',
 			fileDirectory: 'public/files',
+			logDirectory: 'logs',
 			loginExpirationMinutes: 60,
 			chatTimeout: 2000,
 			announcementsFile: 'announcements.txt'

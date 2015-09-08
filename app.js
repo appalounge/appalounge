@@ -2,10 +2,11 @@ var config = require('./config');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+//var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var busboy = require('connect-busboy');
+var fs = require('fs');
 
 function create(db) {
 
@@ -15,9 +16,40 @@ function create(db) {
 	app.set('views', path.join(__dirname, 'views'));
 	app.set('view engine', 'jade');
 
+	var winston = require('winston');
+	var morgan = require('morgan');
+	var logDirectory = path.join('./', config.server.logDirectory);
+	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+	var logger = new winston.Logger({
+	    transports: [
+	                 new winston.transports.File({
+	                     level: 'info',
+	                     filename: logDirectory + '/all-logs.log',
+	                     handleExceptions: true,
+	                     json: true,
+	                     maxsize: 5242880, //5MB
+	                     maxFiles: 5,
+	                     colorize: false
+	                 }),
+	                 new winston.transports.Console({
+	                     level: 'debug',
+	                     handleExceptions: true,
+	                     json: false,
+	                     colorize: true
+	                 })
+	                 ],
+	                 exitOnError: false
+	});
+	logger.stream = {
+	        write: function(message){
+	            logger.info(message);
+	        }
+	};
+	app.use(morgan('dev', { stream: logger.stream }));
+
 	// uncomment after placing your favicon in /public
 	//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-	app.use(logger('dev'));
+	//app.use(logger('dev'));
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(busboy());
@@ -73,7 +105,7 @@ function create(db) {
 
     app.use(function(err, req, res, next) {
     	if (!err.status) {
-    		console.error(err);
+    		logger.error(err);
     		throw err;
     	}
     	getImage(function(image, quote) {
@@ -98,7 +130,7 @@ function create(db) {
     	});
     });
     
-	return app;
+	return [app, logger];
 
 	function authenticationCheck(req, res, next) {
 		var restricted = [
@@ -110,7 +142,7 @@ function create(db) {
 		if (key) {
 			db.collection(config.db.collections.sessions).findOne({ key: key, ip: req.ip, expiration: { $gt: new Date() } }, function(err, result) {
 				if (err) {
-					console.error(err.toString());
+					logger.error(err.toString());
 					res.redirect('/login?required=1&path=' + req.path);
 				}
 				else {
