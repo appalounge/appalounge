@@ -129,7 +129,8 @@ function create(db) {
 			// For use in other routes
 			if (authenticated) {
 				req.authentication = {
-						username: username
+						username: username,
+						ip: req.ip
 				};
 			}
 			for (var r = 0; r < restricted.length; r++) {

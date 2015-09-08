@@ -12,11 +12,25 @@ module.exports = function(db) {
 		for (var key in chatSessions) {
 			if (chatSessions.hasOwnProperty(key)) {
 				if (new Date().getTime() - chatSessions[key].lastRequest.getTime() > config.server.chatTimeout) {
+					var session = chatSessions[key];
+					sendMessage({
+						date: new Date(),
+						sender: null,
+						message: session.sender + ' left the chat.'
+					});
 					delete chatSessions[key];
 				}
 			}
 		}
-	}, 10000);
+	}, 1000);
+
+	function sendMessage(message) {
+		for (var key in chatSessions) {
+			if (chatSessions.hasOwnProperty(key)) {
+				chatSessions[key].newMessages.push(message);
+			}
+		}
+	}
 	
 	router.get('/', function(req, res, next) {
 		var chatKey = req.query.chatKey;
@@ -37,8 +51,15 @@ module.exports = function(db) {
 			chatSessions[chatKey] = {
 					lastRequest: new Date(),
 					newMessages: [],
+					sender: req.authentication ? req.authentication.username : req.ip
 			};
+			var session = chatSessions[chatKey];
 			res.json({ key: chatKey });
+			sendMessage({
+				date: new Date(),
+				sender: null,
+				message: session.sender + ' joined the chat.'
+			});
 		}
 		else {
 			var session = chatSessions[chatKey];
@@ -58,21 +79,11 @@ module.exports = function(db) {
 		if (chatKey && message) {
 			var session = chatSessions[chatKey];
 			if (session) {
-				for (var key in chatSessions) {
-					if (chatSessions.hasOwnProperty(key)) {
-						/*var dateFormat = {
-							    hour: '2-digit',
-							    minute: '2-digit',
-							    second: '2-digit',
-							};
-						chatSessions[key].newMessages.push('[' + new Date().toLocaleTimeString('en-US', dateFormat) + '] ' + (req.authentication ? req.authentication.username : req.ip) + ': ' + message);*/
-						chatSessions[key].newMessages.push({
-							date: new Date(),
-							sender: (req.authentication ? req.authentication.username : '(' + req.ip + ')'),
-							message: message
-						});
-					}
-				}
+				sendMessage({
+					date: new Date(),
+					sender: session.sender,
+					message: message
+				});
 				res.json({ success: true });
 			}
 			else {

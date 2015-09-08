@@ -45,7 +45,12 @@ $(function() {
 				minute: '2-digit',
 				second: '2-digit',
 		};
-		$('#chatDisplay').append('<div><span style="color:#0000ff">[' + new Date(message.date).toLocaleTimeString('en-US', dateFormat) + ']</span> <span style="color:#ff0000">' + message.sender + '</span>: &nbsp;' + message.message + '</div>');
+		if (message.sender) {
+			$('#chatDisplay').append('<div><span style="color:#0000ff">[' + new Date(message.date).toLocaleTimeString('en-US', dateFormat) + ']</span> <span style="color:#00aaaa">' + message.sender + '</span>: &nbsp;' + message.message + '</div>');
+		}
+		else {
+			$('#chatDisplay').append('<div><span style="color:#0000ff">[' + new Date(message.date).toLocaleTimeString('en-US', dateFormat) + ']</span> <span style="color:#00aaaa">' + message.message + '</span></div>');
+		}
 		var div = document.getElementById('chatDisplay');
 		div.scrollTop = div.scrollHeight;
 	}
