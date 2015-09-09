@@ -56,4 +56,24 @@ $(function() {
 			}
 		});
 	});
+
+	$('#changePasswordForm').submit(function(event) {
+		event.preventDefault();
+		var password = $('#password').val();
+		var newPassword = $('#newPassword').val();
+		var confirmNewPassword = $('#confirmNewPassword').val();
+		if (newPassword !== confirmNewPassword) {
+			$('#passwordErrorMessage').html('<p style="color:red">Passwords do not match</p>');
+		}
+		else {
+			$.post('/data/users/changePassword/' + user + location.search, { password: password, newPassword: newPassword }, function(json) {
+				if (json.error) {
+					$('#passwordErrorMessage').html('<p style="color:red">' + (json.error || 'An error has occurred') + '</p>');
+				}
+				else {
+					location.href = '/users/' + user + location.search;
+				}
+			});
+		}
+	});
 });

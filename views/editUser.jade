@@ -110,11 +110,23 @@ html
                       td
                       td(style="padding-top:10px")
                         input(type="submit", value="Save", style="float:right")
-              td(style="padding-left:20px;border-left:2px solid gray")
+              td(style="padding-left:20px;padding-right:20px;border-left:2px solid gray")
                 form(id='profilePicForm', action="/profilepic", method="post", enctype="multipart/form-data", style="float:right")
                   div(id="userPicture")
                   input(type="file" name="file" style="margin:auto")
-                  input(type="submit" value="Set Profile Pic" style="float:right")
+                  input(type="submit" value="Set profile pic" style="float:right")
+              td(style="padding-left:20px;border-left:2px solid gray")
+                form(id='changePasswordForm')
+                  div Password:
+                  input(type="password" id="password")
+                  div New password:
+                  input(type="password" id="newPassword")
+                  div Confirm new password:
+                  input(type="password" id="confirmNewPassword")
+                  br
+                  br
+                  input(type="submit" value="Change password" style="float:right")
+                  div(id='passwordErrorMessage')
           hr.featurette-divider
           // FOOTER
           footer

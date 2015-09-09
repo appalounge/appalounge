@@ -1,6 +1,7 @@
 var config = require('../../config');
 var express = require('express');
 var router = express.Router();
+var bcrypt = require('bcrypt');
 
 module.exports = function(db) {
 
@@ -28,11 +29,11 @@ module.exports = function(db) {
 				});	
 			}
 			else {
-				res.json({ error: 'You are not permitted to make changes to this page' });
+				res.json({ error: 'You are not permitted to make changes to this user' });
 			}
 		}
 		else {
-			res.json({ error: 'You are not permitted to make changes to this page' });
+			res.json({ error: 'You are not permitted to make changes to this user' });
 		}
 	});
 
@@ -84,11 +85,64 @@ module.exports = function(db) {
 				res.json({});
 			}
 			else {
-				res.json({ error: 'You are not permitted to make changes to this page' });
+				res.json({ error: 'You are not permitted to make changes to this user' });
 			}
 		}
 		else {
-			res.json({ error: 'You are not permitted to make changes to this page' });
+			res.json({ error: 'You are not permitted to make changes to this user' });
+		}
+	});
+
+	/* GET user data. */
+	router.post('/changePassword/*', function(req, res, next) {
+		var user = req.path.slice(req.path.lastIndexOf('/') + 1);
+		var password = req.body.password;
+		var newPassword = req.body.newPassword;
+		if (req.authentication) {
+			var admins = config.server.admins;
+			var admin = false;
+			for (var a = 0; a < admins.length; a++) {
+				if (req.authentication.user = admins[a]) {
+					admin = true;
+				}
+			}
+			if (req.authentication.username === user || admin) {
+				if (password && newPassword) {
+					db.collection(config.db.collections.users).findOne({ username: user }, function(err, result) {
+						if (err) {
+							console.error(err.toString());
+							res.json({ error: 'Database query failed' });
+						}
+						else if (result) {
+							if(bcrypt.compareSync(password, result.password)) {
+								var salt = bcrypt.genSaltSync(10);
+							    var hash = bcrypt.hashSync(newPassword, salt);
+								db.collection(config.db.collections.users).update({ username: user }, { $set: { password: hash } }, function(err) {
+									if (err) {
+										logger.error(err.toString());
+									}
+									res.json({});
+								});
+							}
+							else {
+								res.json({ error: 'Incorrect password' });
+							}
+						}
+						else {
+							res.json({ error: 'Incorrect password' });
+						}
+					});
+				}
+				else {
+					res.json({ error: 'Missing necessary information' });
+				}
+			}
+			else {
+				res.json({ error: 'You are not permitted to make changes to this user' });
+			}
+		}
+		else {
+			res.json({ error: 'You are not permitted to make changes to this user' });
 		}
 	});
 
