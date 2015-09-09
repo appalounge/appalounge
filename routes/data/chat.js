@@ -6,6 +6,7 @@ var bcrypt = require('bcrypt');
 module.exports = function(db) {
 	
 	var chatSessions = {};
+	var messageList = [];
 	
 	// Remove dead sessions
 	setInterval(function() {
@@ -30,6 +31,7 @@ module.exports = function(db) {
 				chatSessions[key].newMessages.push(message);
 			}
 		}
+		messageList.push(message);
 	}
 	
 	router.get('/', function(req, res, next) {
@@ -51,7 +53,7 @@ module.exports = function(db) {
 			chatSessions[chatKey] = {
 					lastRequest: new Date(),
 					newMessages: [],
-					sender: req.authentication ? req.authentication.username : req.ip
+					sender: (req.authentication ? req.authentication.username : req.ip),
 			};
 			var session = chatSessions[chatKey];
 			res.json({ key: chatKey });
@@ -65,7 +67,13 @@ module.exports = function(db) {
 			var session = chatSessions[chatKey];
 			if (session) {
 				session.lastRequest = new Date();
-				res.json({ newMessages: session.newMessages }).end();;
+				var onlineList = [];
+				for (var key in chatSessions) {
+					if (chatSessions.hasOwnProperty(key)) {
+						onlineList.push(chatSessions[key].sender);
+					}
+				}
+				res.json({ newMessages: /*session.newMessages*/ messageList, onlineList: onlineList }).end();;
 				session.newMessages = [];
 			}
 			else {

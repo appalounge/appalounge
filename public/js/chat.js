@@ -15,8 +15,16 @@ $(function() {
 				$.get(path, function(response) {
 					var messages = response.newMessages;
 					if (messages) {
+						$('#chatDisplay').empty();
 						for (var m = 0; m < messages.length; m++) {
 							display(messages[m]);
+						}
+					}
+					var onlineList = response.onlineList;
+					if (onlineList) {
+						$('#onlineList').empty();
+						for (var o = 0; o < onlineList.length; o++) {
+							$('#onlineList').append('<li>' + onlineList[o] + '</li>');
 						}
 					}
 					else {

@@ -45,11 +45,18 @@ html
           //h3#subtitle.text-muted Chat
           hr.featurette-divider
           // h3 class="text-muted" id="subtitle">Sorry, no photos yet!</h3
-          div(id='chatDisplay', style='width:400px;height:200px;overflow-y:scroll;border:1px solid #000000;resize:both;')
-          br
-          form(id='chatForm')
-            input(type='text', id="chatMessage")
-            input(type="submit", id="chat", value="Send")
+          table
+            tr
+              td
+                div(id='chatDisplay', style='width:400px;height:200px;overflow-y:scroll;border:1px solid #000000;resize:both;')
+                br
+                form(id='chatForm')
+                  input(type='text', id="chatMessage")
+                  input(type="submit", id="chat", value="Send")
+              td
+                div(style="padding-left:30px")
+                  div Online:
+                  ul(id='onlineList')
           hr.featurette-divider
           // FOOTER
           footer
