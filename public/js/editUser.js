@@ -26,7 +26,7 @@ $(function() {
 			$('#country').val(json.country);
 		}
 		else {
-			$('#editUserForm').hide();
+			$('#editUserPage').hide();
 			$('#errorMessage').html('<p style="color:red">' + (json.error || 'An error has occurred') + '</p>');
 		}
 	});
