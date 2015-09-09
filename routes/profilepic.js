@@ -35,7 +35,7 @@ function uploadFiles (req, res) {
 		var admins = config.server.admins;
 		var admin = false;
 		for (var a = 0; a < admins.length; a++) {
-			if (req.authentication.user === admins[a]) {
+			if (req.authentication.username === admins[a]) {
 				admin = true;
 			}
 		}
