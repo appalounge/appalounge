@@ -17,6 +17,6 @@ $(function() {
         if(data.city) { $('#userData').append('<div>City: ' + data.city + '</div>'); }
         if(data.state) { $('#userData').append('<div>State/Province: ' + data.state + '</div>'); }
         if(data.country) { $('#userData').append('<div>Country: ' + data.country + '</div>'); }
-        if(data.homepage) { $('#userData').append('<div>Homepage: <a href="' + data.homepage + '">' + data.homepage + '</a></div>'); }
+        if(data.homepage) { $('#userData').append('<div>Homepage: <a target="blank" href="' + data.homepage + '">' + data.homepage + '</a></div>'); }
 	});
 });

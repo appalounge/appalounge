@@ -167,6 +167,7 @@ function create(db) {
 		}
 		
 		function restrict(authenticated, username) {
+			logger.info('Authentication check: ' + (username || req.ip));
 			// For use in other routes
 			if (authenticated) {
 				var admins = config.server.admins;
