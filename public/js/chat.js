@@ -11,13 +11,16 @@ $(function() {
 			else {
 				path += '?chatKey=' + chatKey;
 			}
+			var messageCount = -1;
 			var interval = setInterval(function() {
 				$.get(path, function(response) {
 					var messages = response.newMessages;
+					var autoscroll = (messages.length !== messageCount);
+					messageCount = messages.length;
 					if (messages) {
 						$('#chatDisplay').empty();
 						for (var m = 0; m < messages.length; m++) {
-							display(messages[m]);
+							display(messages[m], autoscroll);
 						}
 					}
 					var onlineList = response.onlineList;
@@ -47,7 +50,7 @@ $(function() {
 		});
 	});
 	
-	function display(message) {
+	function display(message, autoscroll) {
 		var dateFormat = {
 				hour: '2-digit',
 				minute: '2-digit',
@@ -59,7 +62,9 @@ $(function() {
 		else {
 			$('#chatDisplay').append('<div><span style="color:#0000ff">[' + new Date(message.date).toLocaleTimeString('en-US', dateFormat) + ']</span> <span style="color:#00aaaa">' + message.message + '</span></div>');
 		}
-		var div = document.getElementById('chatDisplay');
-		div.scrollTop = div.scrollHeight;
+		if (autoscroll) {
+			var div = document.getElementById('chatDisplay');
+			div.scrollTop = div.scrollHeight;
+		}
 	}
 });
