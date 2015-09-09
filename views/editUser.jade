@@ -48,6 +48,13 @@ html
           div(id='errorMessage')
           table(id="editUserPage")
             tr
+              td
+                h3(style="text-align:center;padding-left:25px;padding-right:25px") User Info
+              td
+                h3(style="text-align:center;padding-left:25px;padding-right:25px") Profile Picture
+              td
+                h3(style="text-align:center;padding-left:25px;padding-right:25px") Change Password
+            tr
               td(style="padding-right:20px")
                 form(id='editUserForm')
                   table
@@ -118,14 +125,14 @@ html
               td(style="padding-left:20px;border-left:2px solid gray")
                 form(id='changePasswordForm')
                   div Password:
-                  input(type="password" id="password")
+                  input(type="password" id="password" style="margin:auto")
                   div New password:
                   input(type="password" id="newPassword")
                   div Confirm new password:
                   input(type="password" id="confirmNewPassword")
                   br
                   br
-                  input(type="submit" value="Change password" style="float:right")
+                  input(type="submit" value="Change password")
                   div(id='passwordErrorMessage')
           hr.featurette-divider
           // FOOTER
