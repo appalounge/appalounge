@@ -28,6 +28,13 @@ $(function() {
 				$('#userPageFooterMessage').append('<div style="text-align:center"><a href="/login?path=' + location.pathname + '">Login</a> to view more</div>');
 			}
 		}
+
+		if (location.pathname.match('^/gallery')) {
+			if (!response) {
+				$('#galleryFooterMessage').append('<hr class="featurette-divider"/>');
+				$('#galleryFooterMessage').append('<div style="text-align:center"><a href="/login?path=' + location.pathname + '">Login</a> to view more</div>');
+			}
+		}
 	});
 });
 
