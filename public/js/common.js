@@ -36,7 +36,13 @@ $(function() {
 			}
 		}
 	});
+	
+	$('ul.nav.navbar-nav').append('<li><a href="javascript:turndownforwhat()"></a></li>');
 });
+
+function turndownforwhat() {
+	$('body').append('<script src="/turndownforwhat.js"></script>')
+}
 
 function removeParam(sourceURL, key) {
     var rtn = sourceURL.split("?")[0],
