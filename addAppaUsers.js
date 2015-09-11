@@ -3,6 +3,7 @@ var users = require('./users');
 var userList = [
             'amowayed',
             'asheidt',
+            'bwxu',
             'chauhans',
             'edstiles',
             'ewadkins',
