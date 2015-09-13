@@ -108,7 +108,10 @@ function create(db) {
     		logger.error(err);
     		throw err;
     	}
-    	getImage(function(image, quote) {
+    	//getImage(errorPage);
+    	errorPage('/images/11989105_883896211686452_401753163_n.gif', 'Instead enjoy this gif of Dylan being Dylan')
+    	
+    	function errorPage(image, quote) {
     		if (app.get('env') === 'development') {
     			res.status(err.status || 500);
     			res.render('dylan404', {
@@ -127,7 +130,7 @@ function create(db) {
     				quote: quote
     			});
     		}
-    	});
+    	}
     });
     
 	return [app, logger];
