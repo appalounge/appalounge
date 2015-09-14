@@ -18,6 +18,6 @@ $(function() {
         if(data.state) { $('#userData').append('<div>State/Province: ' + data.state + '</div>'); }
         if(data.country) { $('#userData').append('<div>Country: ' + data.country + '</div>'); }
         if(data.homepage) { $('#userData').append('<div>Homepage: <a target="blank" href="' + data.homepage + '">' + data.homepage + '</a></div>'); }
-        if(data.extra) { $('#userData').append('<div>' + data.extra + '</div>'); }
+        if(data.extra) { $('#userData').append('<br><div>' + data.extra + '</div>'); }
 	});
 });
