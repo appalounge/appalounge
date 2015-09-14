@@ -61,7 +61,8 @@ module.exports = function(db) {
 				                  'homepage',
 				                  'city',
 				                  'state',
-				                  'country'
+				                  'country',
+				                  'extra'
 				                  ];
 				var updated = {};
 				for (var field in userData) {

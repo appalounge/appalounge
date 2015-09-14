@@ -24,6 +24,7 @@ $(function() {
 			$('#city').val(json.city);
 			$('#state').val(json.state);
 			$('#country').val(json.country);
+			$('#extra').val(json.extra);
 		}
 		else {
 			$('#editUserPage').hide();
@@ -45,7 +46,8 @@ $(function() {
 				homepage: $('#homepage').val(),
 				city: $('#city').val(),
 				state: $('#state').val(),
-				country: $('#country').val()
+				country: $('#country').val(),
+				extra: $('#extra').val()
 		}
 		$.post('/data/users/edit/' + user + location.search, userData, function(json) {
 			if(json.error) {

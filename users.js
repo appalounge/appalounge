@@ -137,6 +137,7 @@ function UserData(username, password) {
 	this.city = null;
 	this.state = null;
 	this.country = null;
+	this.extra = null;
 }
 
 module.exports = {
