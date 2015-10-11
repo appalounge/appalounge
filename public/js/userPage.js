@@ -6,7 +6,7 @@ $(function() {
 		str = str.substring(0, index);
 	}
 	var user = str.slice(str.lastIndexOf('/') + 1);
-	$.get('/data/users/' + user + location.search, function(data) {
+	$.get('/data/users/' + user + keyString(), function(data) {
 		$('#fullName').html((data.firstName && data.firstName.content ? data.firstName.content + ' ' : '') + (data.nickname && data.nickname.content ? '"' + data.nickname.content + '" ' : '') + (data.lastName && data.lastName.content ? data.lastName.content : ''));
         $('#username').html(data.username + (data.admin ? ' <span style="color:red">(admin)</span>' : ''));
         $('#userPicture').append('<img class="img-circle hvr-grow-rotate" src="/profilepic/' + user + location.search + '" style="width: 300px; height: 300px; margin-bottom: 32px;"></img>');

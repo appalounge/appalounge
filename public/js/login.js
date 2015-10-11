@@ -1,6 +1,10 @@
 
+var query = getQueryVars();
+if (keyString() && !query.key) {
+	location.href = query.path + keyString();
+}
+	
 $(function() {
-	var query = getQueryVars();
 	if (query.required && query.required == 1) {
 		$('#subtitle').text('You must login to access this page');
 	}
@@ -14,7 +18,8 @@ $(function() {
 				if (query.path) {
 					path = query.path;
 				}
-				location.href = path + '?key=' + json.key;
+				document.cookie = 'key=' + json.key;
+				location.href = path + (query.required && query.required == 1 ? keyString() : '');
 			}
 			else {
 				$('#errorMessage').html('<p style="color:red">' + (json.error || 'An error has occurred') + '</p>');

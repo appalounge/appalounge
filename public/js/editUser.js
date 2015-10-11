@@ -6,12 +6,12 @@ $(function() {
 		str = str.substring(0, index);
 	}
 	var user = str.slice(str.lastIndexOf('/') + 1);
-    $('#userPicture').append('<img class="img-circle hvr-grow-rotate" src="/profilepic/' + user + location.search + '" style="width: 300px; height: 300px; margin-bottom: 32px;"></img>');
-	var uploadPath = '/profilepic/' + user + location.search;
+    $('#userPicture').append('<img class="img-circle hvr-grow-rotate" src="/profilepic/' + user + keyString() + '" style="width: 300px; height: 300px; margin-bottom: 32px;"></img>');
+	var uploadPath = '/profilepic/' + user + keyString();
 	$('#profilePicForm').attr('action', uploadPath);
 	$('#profilePicForm').attr('action', uploadPath);
 	$('#subtitle').text(user);
-	$.get('/data/users/edit/' + user + location.search, function(json) {
+	$.get('/data/users/edit/' + user + keyString(), function(json) {
 		if (json.username) {
 			$('#firstName').val(json.firstName.content);
 			$('#lastName').val(json.lastName.content);
@@ -62,7 +62,7 @@ $(function() {
 				country: { content: $('#country').val() || null, publicView: $('#countryPublic').prop('checked') },
 				extra: { content: $('#extra').val() || null, publicView: $('#extraPublic').prop('checked') }
 		}
-		$.post('/data/users/edit/' + user + location.search, userData, function(json) {
+		$.post('/data/users/edit/' + user + keyString(), userData, function(json) {
 			if(json.error) {
 				$('#errorMessage').html('<p style="color:red">' + (json.error || 'An error has occurred') + '</p>');
 			}
@@ -81,7 +81,7 @@ $(function() {
 			$('#passwordErrorMessage').html('<p style="color:red">Passwords do not match</p>');
 		}
 		else {
-			$.post('/data/users/changePassword/' + user + location.search, { password: password, newPassword: newPassword }, function(json) {
+			$.post('/data/users/changePassword/' + user + keyString(), { password: password, newPassword: newPassword }, function(json) {
 				if (json.error) {
 					$('#passwordErrorMessage').html('<p style="color:red">' + (json.error || 'An error has occurred') + '</p>');
 				}

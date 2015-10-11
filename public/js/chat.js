@@ -1,7 +1,7 @@
 
 $(function() {
 	var chatKey = '';
-	$.get('/data/chat' + location.search, function(json) {
+	$.get('/data/chat' + keyString(), function(json) {
 		if (json.key) {
 			chatKey = json.key;
 			var path = '/data/chat/' + location.search;

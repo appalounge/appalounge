@@ -1,14 +1,18 @@
 
 $(function() {
-	$.get('/data/session' + location.search, function(response) {
+	$.get('/data/session' + keyString(), function(response) {
 		if (response) {
 			$('#loginlogout').text('Logout (' + response.username + ')');
-			$('#loginlogout').attr('href', removeParam(location.pathname + location.search, 'key'));
+			//$('#loginlogout').attr('href', removeParam(location.pathname + location.search, 'key'));
+			$('#loginlogout').attr('href', 'javascript:logout()');
 			$('ul.nav.navbar-nav').append('<li><a href="/users/edit/' + response.username + location.search + '">Edit Profile</a></li>');
 		}
 		else {
 			$('#loginlogout').text('Login');
 			$('#loginlogout').attr('href', '/login?path=' + location.pathname);
+			if (keyString()) {
+				document.cookie = "key=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+			}
 		}
 
 		if (location.pathname.match('^/users/[a-zA-Z0-9]+')) {
@@ -40,6 +44,27 @@ $(function() {
 		$('ul.nav.navbar-nav').append('<li><a href="javascript:turndownforwhat()"></a></li>');
 	});
 });
+
+function logout() {
+	document.cookie = "key=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+	location.href = location.pathname;
+}
+
+function keyString() {
+	var map = cookieMap();
+	return map.key ? '?key=' + cookieMap().key : '';
+}
+
+function cookieMap() {
+	var cookies = document.cookie.split('; ');
+	var map = {};
+	for (var i = 0; i < cookies.length; i++) {
+		var temp = cookies[i].split('=');
+		map[temp[0]] = temp[1];
+	}
+	//console.log(map);
+	return map;
+}
 
 function turndownforwhat() {
 	$('body').append('<script src="/turndownforwhat.js"></script>')

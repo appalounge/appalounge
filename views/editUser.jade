@@ -5,7 +5,6 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(src='/js/common.js')
-    script(src='/js/retainLogin.js')
     script(src='/js/editUser.js')
     link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
   body
@@ -20,22 +19,22 @@ html
                     span.icon-bar
                     span.icon-bar
                     span.icon-bar
-                  a.navbar-brand(href='/', class='retainLogin')
+                  a.navbar-brand(href='/')
                     p Appa Lounge
                 #navbar.navbar-collapse.collapse
                   ul.nav.navbar-nav
                     li
-                      a(href='/', class='retainLogin') Home
+                      a(href='/') Home
                     li.active
-                      a(href='/users', class='retainLogin') Members
+                      a(href='/users') Members
                     li
-                      a(href='/gallery', class='retainLogin') Gallery
+                      a(href='/gallery') Gallery
                     li
-                      a(href='/events', class='retainLogin') Events
+                      a(href='/events') Events
                     li
-                      a(href='/chat', class='retainLogin') Chat
+                      a(href='/chat') Chat
                     li
-                      a(href='/files', class='retainLogin') Files
+                      a(href='/files') Files
                     li
                       a(href='/', id='loginlogout')
         .container.marketing
@@ -182,9 +181,9 @@ html
               a(href='#') Back to top
             p
               | © 2015 Appa Lounge · 
-              a(href='privacy.html', class='retainLogin') Privacy
+              a(href='privacy.html') Privacy
               |  · 
-              a(href='terms.html', class='retainLogin') Terms
+              a(href='terms.html') Terms
         //
           Bootstrap core JavaScript
           ==================================================

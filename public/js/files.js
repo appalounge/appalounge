@@ -1,11 +1,11 @@
 
 $(document).ready(function() {
-	var uploadPath = '/upload' + location.pathname.replace('/files', '') + location.search;
+	var uploadPath = '/upload' + location.pathname.replace('/files', '') + keyString();
 	/*if (uploadPath[uploadPath.length - 1] === '/') {
 		uploadPath = uploadPath.slice(0, -1);
 	}*/
 	$('#uploadForm').attr('action', uploadPath);
-	$.get('/data' + location.pathname + location.search, function(response) {
+	$.get('/data' + location.pathname + keyString(), function(response) {
 		var files = response;
 		if (files.length) {
 			$('#files').append('<table>');
@@ -15,7 +15,7 @@ $(document).ready(function() {
 			$('#files').append('</tr>');
 			for (var i = 0; i < files.length; i++) {
 				var link = location.pathname;
-				link += (link[link.length - 1] === '/' ? '' : '/') + files[i].fileName + location.search;
+				link += (link[link.length - 1] === '/' ? '' : '/') + files[i].fileName + keyString();
 				$('#files').append('<tr style="background-color:' + (files[i].isDirectory ? '#ffffee' : '#ffffff') + '">');
 		        $('#files').append('<td style="padding:5px;"><b>' + files[i].fileName + '</b></td>');
 	            $('#files').append('<td style="padding:5px;">' + files[i].size + ' bytes</td>');
@@ -52,7 +52,7 @@ $(document).ready(function() {
 		for (var e = 0; e <= d; e++) {
 			parentPath += '/' + dirs[e];
 		}
-		parentPath += location.search;
+		parentPath += keyString();
 		html += '<a href="' + parentPath + '">' + dir + '</a>/';
 	}
 	html += current;
@@ -63,7 +63,7 @@ $(document).ready(function() {
 		var folderName = $('#folderName').val();
 		if (folderName) {
 			var link = location.pathname;
-			link += (link[link.length - 1] === '/' ? '' : '/') + folderName + location.search;
+			link += (link[link.length - 1] === '/' ? '' : '/') + folderName + keyString();
 			$.get(link.replace('files', 'newfolder'), function(json) {
 				location.href = json.redirect;
 			});
