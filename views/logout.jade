@@ -5,7 +5,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(src='/js/common.js')
-    script(src='/js/login.js')
+    script(src='/js/logout.js')
     link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
   body
     div
@@ -39,25 +39,11 @@ html
                       a(href='/', id='loginlogout')
         .container.marketing
           h2#title.needs-margin
-            | Login
+            | Logging out...
             span.text-muted
           h3#subtitle.text-muted
           hr.featurette-divider
           // h3 class="text-muted" id="subtitle">Sorry, no photos yet!</h3
-          form(id='loginForm')
-            div Username: 
-            input(type='text', id="username")
-            br
-            br
-            div Password: 
-            input(type='password', id="password")
-            br
-            br
-            input(type="submit", class='btn btn-info', value="Login")
-            br
-            br
-            div(id='errorMessage')
-          hr.featurette-divider
           // FOOTER
           footer
             p.pull-right

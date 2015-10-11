@@ -46,10 +46,11 @@ $(function() {
 });
 
 function logout() {
-	alert(document.cookie);
+	/*alert(document.cookie);
 	document.cookie = "key=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 	alert(document.cookie);
-	location.href = location.pathname;
+	location.href = location.pathname;*/
+	location.href = '/logout?path=' + location.pathname;
 }
 
 function login(username, password, callback) {

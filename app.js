@@ -60,6 +60,7 @@ function create(db) {
 
 	app.use('/', require(path.join(__dirname, config.server.routesDirectory, 'index'))(db));
 	app.use('/login', require(path.join(__dirname, config.server.routesDirectory, 'login'))(db));
+	app.use('/logout', require(path.join(__dirname, config.server.routesDirectory, 'logout'))(db));
 	app.use('/users', require(path.join(__dirname, config.server.routesDirectory, 'users'))(db));
 	app.use('/gallery', require(path.join(__dirname, config.server.routesDirectory, 'gallery'))(db));
 	app.use('/chat', require(path.join(__dirname, config.server.routesDirectory, 'chat'))(db));
