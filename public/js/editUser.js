@@ -15,16 +15,27 @@ $(function() {
 		if (json.username) {
 			$('#firstName').val(json.firstName);
 			$('#lastName').val(json.lastName);
-			$('#nickname').val(json.nickname);
-			$('#email').val(json.email);
-			$('#phone').val(json.phone);
-			$('#room').val(json.room);
-			$('#year').val(json.year);
-			$('#homepage').val(json.homepage);
-			$('#city').val(json.city);
-			$('#state').val(json.state);
-			$('#country').val(json.country);
-			$('#extra').val(json.extra);
+			$('#nickname').val(json.nickname.content);
+			$('#email').val(json.email.content);
+			$('#phone').val(json.phone.content);
+			$('#room').val(json.room.content);
+			$('#year').val(json.year.content);
+			$('#homepage').val(json.homepage.content);
+			$('#city').val(json.city.content);
+			$('#state').val(json.state.content);
+			$('#country').val(json.country.content);
+			$('#extra').val(json.extra.content);
+
+			$('#nicknamePublic').attr('checked', json.nickname.publicView);
+			$('#emailPublic').attr('checked', json.email.publicView);
+			$('#phonePublic').attr('checked', json.phone.publicView);
+			$('#roomPublic').attr('checked', json.room.publicView);
+			$('#yearPublic').attr('checked', json.year.publicView);
+			$('#homepagePublic').attr('checked', json.homepage.publicView);
+			$('#cityPublic').attr('checked', json.city.publicView);
+			$('#statePublic').attr('checked', json.state.publicView);
+			$('#countryPublic').attr('checked', json.country.publicView);
+			$('#extraPublic').attr('checked', json.extra.publicView);
 		}
 		else {
 			$('#editUserPage').hide();
@@ -36,18 +47,18 @@ $(function() {
 		event.preventDefault();
 		var userData = {
 				username: user,
-				firstName: $('#firstName').val(),
-				lastName: $('#lastName').val(),
-				nickname: $('#nickname').val(),
-				email: $('#email').val(),
-				phone: $('#phone').val(),
-				room: $('#room').val(),
-				year: $('#year').val(),
-				homepage: $('#homepage').val(),
-				city: $('#city').val(),
-				state: $('#state').val(),
-				country: $('#country').val(),
-				extra: $('#extra').val()
+				firstName: $('#firstName').val() || null,
+				lastName: $('#lastName').val() || null,
+				nickname: { content: $('#nickname').val() || null, publicView: $('#nicknamePublic').prop('checked') },
+				email: { content: $('#email').val() || null, publicView: $('#emailPublic').prop('checked') },
+				phone: { content: $('#phone').val() || null, publicView: $('#phonePublic').prop('checked') },
+				room: { content: $('#room').val() || null, publicView: $('#roomPublic').prop('checked') },
+				year: { content: $('#year').val() || null, publicView: $('#yearPublic').prop('checked') },
+				homepage: { content: $('#homepage').val() || null, publicView: $('#homepagePublic').prop('checked') },
+				city: { content: $('#city').val() || null, publicView: $('#cityPublic').prop('checked') },
+				state: { content: $('#state').val() || null, publicView: $('#statePublic').prop('checked') },
+				country: { content: $('#country').val() || null, publicView: $('#countryPublic').prop('checked') },
+				extra: { content: $('#extra').val() || null, publicView: $('#extraPublic').prop('checked') }
 		}
 		$.post('/data/users/edit/' + user + location.search, userData, function(json) {
 			if(json.error) {

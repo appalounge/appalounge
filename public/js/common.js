@@ -4,6 +4,7 @@ $(function() {
 		if (response) {
 			$('#loginlogout').text('Logout (' + response.username + ')');
 			$('#loginlogout').attr('href', removeParam(location.pathname + location.search, 'key'));
+			$('ul.nav.navbar-nav').append('<li><a href="/users/edit/' + response.username + location.search + '">Edit Profile</a></li>');
 		}
 		else {
 			$('#loginlogout').text('Login');
@@ -35,9 +36,9 @@ $(function() {
 				$('#galleryFooterMessage').append('<div style="text-align:center"><a href="/login?path=' + location.pathname + '">Login</a> to view more</div>');
 			}
 		}
+
+		$('ul.nav.navbar-nav').append('<li><a href="javascript:turndownforwhat()"></a></li>');
 	});
-	
-	$('ul.nav.navbar-nav').append('<li><a href="javascript:turndownforwhat()"></a></li>');
 });
 
 function turndownforwhat() {

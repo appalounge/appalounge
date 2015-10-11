@@ -74,10 +74,12 @@ module.exports = function(db) {
 							}
 						}
 						if (permitted) {
-							updated[field] = userData[field];
+							updated[field] = userData[field] || null;
 						}
 					}
 				}
+				clean(updated);
+				console.log(updated);
 				db.collection(config.db.collections.users).update({ username: userData.username }, { $set: updated }, function(err) {
 					if (err) {
 						logger.error(err.toString());
@@ -157,19 +159,46 @@ module.exports = function(db) {
 				admin = true;
 			}
 		}
-		if (req.authentication) {
-			db.collection(config.db.collections.users).findOne({ username: user }, { _id: 0, password: 0 }, function(err, result) {
-				result.admin = admin;
-				res.json(result);
-			});
-		}
-		else {
-			db.collection(config.db.collections.users).findOne({ username: user }, { _id: 0, password: 0, nickname: 0, phone: 0, room: 0, year: 0, city: 0, state: 0, country: 0 }, function(err, result) {
-				result.admin = admin;
-				res.json(result);
-			});
-		}
+		db.collection(config.db.collections.users).findOne({ username: user }, { _id: 0, password: 0 }, function(err, result) {
+			result.admin = admin;
+			if (!req.authentication) {
+				for (var key in result) {
+					if (result.hasOwnProperty(key)) {
+						if (result[key] instanceof Object && !result[key].publicView) {
+							delete result[key];
+						}
+					}
+				}
+			}
+			res.json(result);
+		});
 	});
 	
 	return router;
+}
+
+function clean(obj) {
+	nullifyDeep(obj);
+	for (var key in obj) {
+		if (obj.hasOwnProperty(key)) {
+			if (obj[key])
+				console.log(!!obj[key].publicView);
+			if (obj[key] && !!obj[key].publicView) {
+				obj[key].publicView = obj[key].publicView === 'true';
+			}
+		}
+	}
+}
+
+function nullifyDeep(obj) {
+	for (var key in obj) {
+		if (obj.hasOwnProperty(key)) {
+			if (!obj[key]) {
+				obj[key] = null;
+			}
+			else if (obj[key] instanceof Object) {
+				nullifyDeep(obj[key]);
+			}
+		}
+	}
 }

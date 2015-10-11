@@ -7,17 +7,17 @@ $(function() {
 	}
 	var user = str.slice(str.lastIndexOf('/') + 1);
 	$.get('/data/users/' + user + location.search, function(data) {
-		$('#fullName').html((data.firstName ? data.firstName + ' ' : '') + (data.nickname ? '"' + data.nickname + '" ' : '') + (data.lastName || ''));
+		$('#fullName').html((data.firstName ? data.firstName + ' ' : '') + (data.nickname && data.nickname.content ? '"' + data.nickname.content + '" ' : '') + (data.lastName || ''));
         $('#username').html(data.username + (data.admin ? ' <span style="color:red">(admin)</span>' : ''));
         $('#userPicture').append('<img class="img-circle hvr-grow-rotate" src="/profilepic/' + user + location.search + '" style="width: 300px; height: 300px; margin-bottom: 32px;"></img>');
-        if(data.email){ $('#userData').append('<div>Email: <a href="mailto:' + data.email + '">' + data.email + '</a></div>'); }
-        if(data.phone){ $('#userData').append('<div>Phone: <a href="tel:' + data.phone + '">' + data.phone + '</a></div>'); }
-        if(data.room) { $('#userData').append('<div>Room: ' + data.room + '</div>'); }
-        if(data.year) { $('#userData').append('<div>Year: ' + data.year + '</div>'); }
-        if(data.city) { $('#userData').append('<div>City: ' + data.city + '</div>'); }
-        if(data.state) { $('#userData').append('<div>State/Province: ' + data.state + '</div>'); }
-        if(data.country) { $('#userData').append('<div>Country: ' + data.country + '</div>'); }
-        if(data.homepage) { $('#userData').append('<div>Homepage: <a target="blank" href="' + data.homepage + '">' + data.homepage + '</a></div>'); }
-        if(data.extra) { $('#userData').append('<br><div>' + data.extra + '</div>'); }
+        if(data.email && data.email.content){ $('#userData').append('<div>Email: <a href="mailto:' + data.email.content + '">' + data.email.content + '</a></div>'); }
+        if(data.phone && data.phone.content){ $('#userData').append('<div>Phone: <a href="tel:' + data.phone.content + '">' + data.phone.content + '</a></div>'); }
+        if(data.room && data.room.content) { $('#userData').append('<div>Room: ' + data.room.content + '</div>'); }
+        if(data.year && data.year.content) { $('#userData').append('<div>Year: ' + data.year.content + '</div>'); }
+        if(data.city && data.city.content) { $('#userData').append('<div>City: ' + data.city.content + '</div>'); }
+        if(data.state && data.state.content) { $('#userData').append('<div>State/Province: ' + data.state.content + '</div>'); }
+        if(data.country && data.country.content) { $('#userData').append('<div>Country: ' + data.country.content + '</div>'); }
+        if(data.homepage && data.homepage.content) { $('#userData').append('<div>Homepage: <a target="blank" href="' + data.homepage.content + '">' + data.homepage.content + '</a></div>'); }
+        if(data.extra && data.extra.content) { $('#userData').append('<br><div>' + data.extra.content + '</div>'); }
 	});
 });
