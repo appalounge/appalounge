@@ -1,30 +1,33 @@
 
 var users = require('./users');
 var userList = [
-            'amowayed',
-            'asheidt',
-            'bwxu',
-            'chauhans',
-            'edstiles',
-            'ewadkins',
-            'ignacioe',
-            'jacqliu',
-            'jcorona',
-            'jerios',
-            'jhbell',
-            'jspileck',
-            'lilydove',
-            'loctrinh',
-            'mfeffer',
-            'pnoyola',
-            'regirock',
-            'rgulland',
-            'rprice',
-            'ruili',
-            'snvd',
-            'vontell',
-            'yji'
-            ];
+                'amowayed',
+                'jhbell',
+                'chauhans',
+                'jcorona',
+                'hdiehl',
+                'lilydove',
+                'ignacioe',
+                'mfeffer',
+                'cierag',
+                'rgulland',
+                'asheidt',
+                'yji',
+                'nkogan',
+                'jacqliu',
+                'pnoyola',
+                'dypark',
+                'rprice',
+                'regirock',
+                'jerios',
+                'jspileck',
+                'emistan4',
+                'edstiles',
+                'loctrinh',
+                'snvd',
+                'vontell',
+                'ewadkins'
+                ];
 
 var i = 0;
 next();
