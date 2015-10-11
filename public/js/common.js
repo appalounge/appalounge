@@ -5,7 +5,7 @@ $(function() {
 			$('#loginlogout').text('Logout (' + response.username + ')');
 			//$('#loginlogout').attr('href', removeParam(location.pathname + location.search, 'key'));
 			$('#loginlogout').attr('href', 'javascript:logout()');
-			$('ul.nav.navbar-nav').append('<li><a href="/users/edit/' + response.username + location.search + '">Edit Profile</a></li>');
+			$('ul.nav.navbar-nav').append('<li><a href="/users/edit/' + response.username + '">Edit Profile</a></li>');
 		}
 		else {
 			$('#loginlogout').text('Login');
@@ -25,7 +25,7 @@ $(function() {
 			if (response) {
 				if (user === response.username || response.admin) {
 					$('#userPageFooterMessage').append('<hr class="featurette-divider"/>');
-					$('#userPageFooterMessage').append('<div style="text-align:center"><a href="' + location.pathname.replace('users', 'users/edit') + location.search + '">Edit</a> this user</div>');
+					$('#userPageFooterMessage').append('<div style="text-align:center"><a href="' + location.pathname.replace('users', 'users/edit') + '">Edit</a> this user</div>');
 				}
 			}
 			else {
@@ -46,8 +46,29 @@ $(function() {
 });
 
 function logout() {
+	alert(document.cookie);
 	document.cookie = "key=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+	alert(document.cookie);
 	location.href = location.pathname;
+}
+
+function login(username, password, callback) {
+	var query = getQueryVars();
+	$.post('/data/login', { username: username, password: password }, function(json) {
+		if (json.key) {
+			var path = '/';
+			if (query.path) {
+				path = query.path;
+			}
+			document.cookie = 'key=' + json.key;
+			location.href = path + (query.required && query.required == 1 ? keyString() : '');
+		}
+		else {
+			if (callback) {
+				callback(json.error);
+			}
+		}
+	});
 }
 
 function keyString() {
@@ -86,5 +107,17 @@ function removeParam(sourceURL, key) {
         rtn = rtn + "?" + params_arr.join("&");
     }
     return rtn;
+}
+
+function getQueryVars() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
 }
 
