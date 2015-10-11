@@ -1,6 +1,19 @@
 
+document.appalounge = {};
+
+var dataCallback = null;
+var onSessionData = function(callback) {
+	dataCallback = callback;
+}
+
 $(function() {
 	$.get('/data/session' + keyString(), function(response) {
+		if (dataCallback) {
+			dataCallback(response);
+		}
+		onSessionData = function(callback) {
+			callback(response);
+		}
 		if (response) {
 			$('#loginlogout').text('Logout (' + response.username + ')');
 			//$('#loginlogout').attr('href', removeParam(location.pathname + location.search, 'key'));
@@ -12,32 +25,6 @@ $(function() {
 			$('#loginlogout').attr('href', '/login?path=' + location.pathname);
 			if (keyString()) {
 				document.cookie = "key=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-			}
-		}
-
-		if (location.pathname.match('^/users/[a-zA-Z0-9]+')) {
-			var str = location.href;
-			var index = str.indexOf('?');
-			if (index !== -1) {
-				str = str.substring(0, index);
-			}
-			var user = str.slice(str.lastIndexOf('/') + 1);
-			if (response) {
-				if (user === response.username || response.admin) {
-					$('#userPageFooterMessage').append('<hr class="featurette-divider"/>');
-					$('#userPageFooterMessage').append('<div style="text-align:center"><a href="' + location.pathname.replace('users', 'users/edit') + '">Edit</a> this user</div>');
-				}
-			}
-			else {
-				$('#userPageFooterMessage').append('<hr class="featurette-divider"/>');
-				$('#userPageFooterMessage').append('<div style="text-align:center"><a href="/login?path=' + location.pathname + '">Login</a> to view more</div>');
-			}
-		}
-
-		if (location.pathname.match('^/gallery')) {
-			if (!response) {
-				$('#galleryFooterMessage').append('<hr class="featurette-divider"/>');
-				$('#galleryFooterMessage').append('<div style="text-align:center"><a href="/login?path=' + location.pathname + '">Login</a> to view more</div>');
 			}
 		}
 

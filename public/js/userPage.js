@@ -20,4 +20,23 @@ $(function() {
         if(data.homepage && data.homepage.content) { $('#userData').append('<div>Homepage: <a target="blank" href="' + data.homepage.content + '">' + data.homepage.content + '</a></div>'); }
         if(data.extra && data.extra.content) { $('#userData').append('<br><div>' + data.extra.content + '</div>'); }
 	});
+	
+	onSessionData(function(response) {
+		var str = location.href;
+		var index = str.indexOf('?');
+		if (index !== -1) {
+			str = str.substring(0, index);
+		}
+		var user = str.slice(str.lastIndexOf('/') + 1);
+		if (response) {
+			if (user === response.username || response.admin) {
+				$('#footerMessage').append('<hr class="featurette-divider"/>');
+				$('#footerMessage').append('<div style="text-align:center"><a href="' + location.pathname.replace('users', 'users/edit') + '">Edit</a> this user</div>');
+			}
+		}
+		else {
+			$('#footerMessage').append('<hr class="featurette-divider"/>');
+			$('#footerMessage').append('<div style="text-align:center"><a href="/login?path=' + location.pathname + '">Login</a> to view more</div>');
+		}
+	});
 });

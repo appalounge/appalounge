@@ -31,7 +31,8 @@ var config = {
 	        },
 	        collections: {
 	        	users: 'users',
-	        	sessions: 'sessions'
+	        	sessions: 'sessions',
+	        	announcements: 'announcements'
 	        }
 	    }
 }

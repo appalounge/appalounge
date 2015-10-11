@@ -138,10 +138,10 @@ function UserData(username, password) {
 	this.state = null;
 	this.country = null;
 	this.extra = null;*/
-	this.firstName = { content: null, publicView: false };
-	this.lastName = { content: null, publicView: false };
+	this.firstName = { content: null, publicView: true };
+	this.lastName = { content: null, publicView: true };
 	this.nickname = { content: null, publicView: false };
-	this.email = { content: null, publicView: false };
+	this.email = { content: null, publicView: true };
 	this.phone = { content: null, publicView: false };
 	this.room = { content: null, publicView: false };
 	this.year = { content: null, publicView: false };

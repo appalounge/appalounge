@@ -8,6 +8,9 @@ module.exports = function(db) {
 	/* GET user list. */
 	router.get('/', function(req, res, next) {
 		db.collection(config.db.collections.users).find({}, { password: 0 }).sort({ username: 1 }).toArray(function(err, result) {
+			if (err) {
+				console.log(err);
+			}
 			if (!req.authentication) {
 				for (var i = 0; i < result.length; i++) {
 					for (var key in result[i]) {
@@ -95,8 +98,8 @@ module.exports = function(db) {
 					if (err) {
 						logger.error(err.toString());
 					}
+					res.json({});
 				});
-				res.json({});
 			}
 			else {
 				res.json({ error: 'You are not permitted to make changes to this user' });
@@ -171,6 +174,9 @@ module.exports = function(db) {
 			}
 		}
 		db.collection(config.db.collections.users).findOne({ username: user }, { _id: 0, password: 0 }, function(err, result) {
+			if (err) {
+				console.log(err);
+			}
 			result.admin = admin;
 			if (!req.authentication) {
 				for (var key in result) {
