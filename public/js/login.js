@@ -1,7 +1,7 @@
 
 var query = getQueryVars();
 if (keyString() && !query.key) {
-	location.href = query.path + keyString();
+	location.href = (query.path || '/') + (query.required && query.required == 1 ? keyString() : '');
 }
 	
 $(function() {
