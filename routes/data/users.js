@@ -192,8 +192,6 @@ function clean(obj) {
 	nullifyDeep(obj);
 	for (var key in obj) {
 		if (obj.hasOwnProperty(key)) {
-			if (obj[key])
-				console.log(!!obj[key].publicView);
 			if (obj[key] && !!obj[key].publicView) {
 				obj[key].publicView = obj[key].publicView === 'true';
 			}
