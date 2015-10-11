@@ -126,7 +126,7 @@ function UserData(username, password) {
     var hash = bcrypt.hashSync(password, salt);
 	this.username = username;
 	this.password = hash;
-	this.firstName = null;
+	/*this.firstName = null;
 	this.lastName = null;
 	this.nickname = null;
 	this.email = null;
@@ -137,8 +137,10 @@ function UserData(username, password) {
 	this.city = null;
 	this.state = null;
 	this.country = null;
-	this.extra = null;
-	/*this.nickname = { content: null, publicView: false };
+	this.extra = null;*/
+	this.firstName = { content: null, publicView: false };
+	this.lastName = { content: null, publicView: false };
+	this.nickname = { content: null, publicView: false };
 	this.email = { content: null, publicView: false };
 	this.phone = { content: null, publicView: false };
 	this.room = { content: null, publicView: false };
@@ -147,7 +149,7 @@ function UserData(username, password) {
 	this.city = { content: null, publicView: false };
 	this.state = { content: null, publicView: false };
 	this.country = { content: null, publicView: false };
-	this.extra = { content: null, publicView: false };*/
+	this.extra = { content: null, publicView: false };
 }
 
 module.exports = {

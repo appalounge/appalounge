@@ -13,8 +13,8 @@ $(function() {
 	$('#subtitle').text(user);
 	$.get('/data/users/edit/' + user + location.search, function(json) {
 		if (json.username) {
-			$('#firstName').val(json.firstName);
-			$('#lastName').val(json.lastName);
+			$('#firstName').val(json.firstName.content);
+			$('#lastName').val(json.lastName.content);
 			$('#nickname').val(json.nickname.content);
 			$('#email').val(json.email.content);
 			$('#phone').val(json.phone.content);
@@ -26,6 +26,8 @@ $(function() {
 			$('#country').val(json.country.content);
 			$('#extra').val(json.extra.content);
 
+			$('#firstNamePublic').attr('checked', json.firstName.publicView);
+			$('#lastNamePublic').attr('checked', json.lastName.publicView);
 			$('#nicknamePublic').attr('checked', json.nickname.publicView);
 			$('#emailPublic').attr('checked', json.email.publicView);
 			$('#phonePublic').attr('checked', json.phone.publicView);
@@ -47,8 +49,8 @@ $(function() {
 		event.preventDefault();
 		var userData = {
 				username: user,
-				firstName: $('#firstName').val() || null,
-				lastName: $('#lastName').val() || null,
+				firstName: { content: $('#firstName').val() || null, publicView: $('#firstNamePublic').prop('checked') },
+				lastName: { content: $('#lastName').val() || null, publicView: $('#lastNamePublic').prop('checked') },
 				nickname: { content: $('#nickname').val() || null, publicView: $('#nicknamePublic').prop('checked') },
 				email: { content: $('#email').val() || null, publicView: $('#emailPublic').prop('checked') },
 				phone: { content: $('#phone').val() || null, publicView: $('#phonePublic').prop('checked') },

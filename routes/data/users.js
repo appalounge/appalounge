@@ -8,6 +8,17 @@ module.exports = function(db) {
 	/* GET user list. */
 	router.get('/', function(req, res, next) {
 		db.collection(config.db.collections.users).find({}, { password: 0 }).sort({ username: 1 }).toArray(function(err, result) {
+			if (!req.authentication) {
+				for (var i = 0; i < result.length; i++) {
+					for (var key in result[i]) {
+						if (result[i].hasOwnProperty(key)) {
+							if (result[i][key] instanceof Object && !result[i][key].publicView) {
+								delete result[i][key];
+							}
+						}
+					}
+				}
+			}
 			res.json(result);
 		});
 	});

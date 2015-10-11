@@ -42,6 +42,8 @@ function update(obj) {
 	}
 	
 	var updates = [
+	               'firstName',
+	               'lastName',
 	               'nickname',
 	               'email',
 	               'phone',
