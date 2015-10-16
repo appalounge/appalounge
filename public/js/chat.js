@@ -4,23 +4,23 @@ $(function() {
 	$.get('/data/chat' + keyString(), function(json) {
 		if (json.key) {
 			chatKey = json.key;
-			var path = '/data/chat/' + location.search;
+			var path = '/data/chat/' + keyString();
 			if (path.indexOf('?') !== -1) {
 				path += '&chatKey=' + chatKey;
 			}
 			else {
 				path += '?chatKey=' + chatKey;
 			}
-			var messageCount = -1;
+			//var messageCount = -1;
 			var interval = setInterval(function() {
 				$.get(path, function(response) {
 					var messages = response.newMessages;
-					var autoscroll = (messages.length !== messageCount);
-					messageCount = messages.length;
+					//var autoscroll = (messages.length !== messageCount);
+					//messageCount = messages.length;
 					if (messages) {
-						$('#chatDisplay').empty();
-						for (var m = 0; m < messages.length; m++) {
-							display(messages[m], autoscroll);
+						//$('#chatDisplay').empty();
+						if (messages.length) {
+							display(messages);
 						}
 					}
 					var onlineList = response.onlineList;
@@ -46,25 +46,31 @@ $(function() {
 		event.preventDefault();
 		var message = $('#chatMessage').val();
 		$('#chatMessage').val('');
-		$.post('/data/chat' + location.search, { key: chatKey, message: message }, function(response) {
+		$.post('/data/chat' + keyString(), { key: chatKey, message: message }, function(response) {
 		});
 	});
 	
-	function display(message, autoscroll) {
+	function display(messages) {
+		var div = $('#chatDisplay');
+		var inner = $('#chatDisplay > .inner');
+		console.log(Math.abs(inner.offset().top) + ' + ' + div.height() + ' + ' + div.offset().top + ' = ' + (Math.abs(inner.offset().top) + div.height() + div.offset().top) + ' >= ' + (inner.outerHeight() - 1));
+		var atBottom = Math.abs(inner.offset().top) + div.height() + div.offset().top >= inner.outerHeight() - 1;
 		var dateFormat = {
 				hour: '2-digit',
 				minute: '2-digit',
 				second: '2-digit',
 		};
-		if (message.sender) {
-			$('#chatDisplay').append('<div><span style="color:#0000ff">[' + new Date(message.date).toLocaleTimeString('en-US', dateFormat) + ']</span> <span style="color:#00aaaa">' + message.sender + '</span>: &nbsp;' + message.message + '</div>');
+		for (var i = 0; i < messages.length; i++) {
+			var message = messages[i];
+			if (message.sender) {
+				$('#chatDisplay > .inner').append('<div><span style="color:#0000ff">[' + new Date(message.date).toLocaleTimeString('en-US', dateFormat) + ']</span> <span style="color:#00aaaa">' + message.sender + '</span>: &nbsp;' + message.message + '</div>');
+			}
+			else {
+				$('#chatDisplay > .inner').append('<div><span style="color:#0000ff">[' + new Date(message.date).toLocaleTimeString('en-US', dateFormat) + ']</span> <span style="color:#00aaaa">' + message.message + '</span></div>');
+			}
 		}
-		else {
-			$('#chatDisplay').append('<div><span style="color:#0000ff">[' + new Date(message.date).toLocaleTimeString('en-US', dateFormat) + ']</span> <span style="color:#00aaaa">' + message.message + '</span></div>');
-		}
-		if (autoscroll) {
-			var div = document.getElementById('chatDisplay');
-			div.scrollTop = div.scrollHeight;
+		if (atBottom) {
+			$('#chatDisplay').animate({scrollTop: $('#chatDisplay > .inner').outerHeight()});
 		}
 	}
 });

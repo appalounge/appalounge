@@ -15,7 +15,7 @@ $(document).ready(function() {
 			$('#files').append('</tr>');
 			for (var i = 0; i < files.length; i++) {
 				var link = location.pathname;
-				link += (link[link.length - 1] === '/' ? '' : '/') + files[i].fileName + keyString();
+				link += (link[link.length - 1] === '/' ? '' : '/') + files[i].fileName;
 				$('#files').append('<tr style="background-color:' + (files[i].isDirectory ? '#ffffee' : '#ffffff') + '">');
 		        $('#files').append('<td style="padding:5px;"><b>' + files[i].fileName + '</b></td>');
 	            $('#files').append('<td style="padding:5px;">' + files[i].size + ' bytes</td>');
@@ -52,7 +52,6 @@ $(document).ready(function() {
 		for (var e = 0; e <= d; e++) {
 			parentPath += '/' + dirs[e];
 		}
-		parentPath += keyString();
 		html += '<a href="' + parentPath + '">' + dir + '</a>/';
 	}
 	html += current;
