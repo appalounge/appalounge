@@ -138,7 +138,8 @@ function create(db) {
 
 	function authenticationCheck(req, res, next) {
 		var restricted = [
-		                  '^/files'
+		                  '^/files',
+		                  '^/data/files'
 		                  ];
 		var key = req.query.key;
 		// Check for authentication
