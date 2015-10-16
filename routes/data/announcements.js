@@ -9,18 +9,25 @@ var ObjectID = mongodb.ObjectID;
 module.exports = function(db) {
 
 	router.get('/', function(req, res, next) {
-		/*var lines = fs.readFileSync(path.join('./', config.server.announcementsFile)).toString().split('\n');
-		var announcements = [];
-		for (var i = 0; i < lines.length; i++) {
-			if (lines[i]) {
-				announcements.push(lines[i]);
-			}
-		}
-		res.json(announcements);*/
 		db.collection(config.db.collections.announcements).find({}).toArray(function (err, result) {
 			if (err) {
 				console.log(err);
 			}
+			var dateOptions = {
+					year: '2-digit', month: '2-digit',
+					day: 'numeric', hour: '2-digit', minute: '2-digit'
+			};
+			result.created = new Date(result.created).toLocaleTimeString('en-US', dateOptions);
+			res.json(result);
+		});
+	});
+
+	router.get('/2', function(req, res, next) {
+		db.collection(config.db.collections.announcements).find({}).toArray(function (err, result) {
+			if (err) {
+				console.log(err);
+			}
+			result
 			res.json(result);
 		});
 	});
