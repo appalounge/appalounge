@@ -26,7 +26,9 @@ module.exports = function(db) {
 					year: '2-digit', month: '2-digit',
 					day: 'numeric', hour: '2-digit', minute: '2-digit'
 			};
-			result.created = new Date(result.created).toLocaleTimeString('en-US', dateOptions);
+			for (var i = 0; i < result.length; i++) {
+				result[i].created = new Date(result[i].created).toLocaleTimeString('en-US', dateOptions);	
+			}
 			res.json(result);
 		});
 	});
