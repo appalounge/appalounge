@@ -27,7 +27,8 @@ module.exports = function(db) {
 					day: 'numeric', hour: '2-digit', minute: '2-digit'
 			};
 			for (var i = 0; i < result.length; i++) {
-				result[i].created = new Date(result[i].created).toLocaleTimeString('en-US', dateOptions);	
+				//result[i].created = new Date(result[i].created).toLocaleTimeString('en-US', dateOptions);	
+				result[i].created = formatDate(new Date(result[i].created));
 			}
 			res.json(result);
 		});
@@ -99,4 +100,10 @@ module.exports = function(db) {
 	});
 	
 	return router;
+}
+
+function formatDate(date) {
+	var formatted = '';
+	formatted += (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear() + ', ' + (date.getHours() % 12 === 0 ? '12' : date.getHours() % 12) + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ' ' + (~~(date.getHours() / 12) ? 'PM' : 'AM');
+	return formatted;
 }
