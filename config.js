@@ -15,7 +15,6 @@ var config = {
 			logDirectory: 'logs',
 			loginExpirationMinutes: 15,
 			chatTimeout: 2000,
-			announcementsFile: 'announcements.txt',
 			admins: ['ewadkins', 'vontell', 'loctrinh']
 		},    
 		db: {

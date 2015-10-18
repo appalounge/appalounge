@@ -1,6 +1,4 @@
 
-document.appalounge = {};
-
 var dataCallback = null;
 var onSessionData = function(callback) {
 	dataCallback = callback;
@@ -29,6 +27,12 @@ $(function() {
 		}
 
 		$('ul.nav.navbar-nav').append('<li><a href="javascript:turndownforwhat()"></a></li>');
+	});
+	
+	$.get('/data/theme' + keyString(), function(response) {
+		if (response) {
+			customize(response.theme);
+		}
 	});
 });
 
@@ -107,5 +111,84 @@ function getQueryVars() {
         vars[hash[0]] = hash[1];
     }
     return vars;
+}
+
+function setTheme(theme) {
+	$.post('/data/theme' + keyString(), { theme: theme }, function(response) {
+		location.href = '/';
+	});
+}
+
+function customize(theme) {
+	var themes = {
+			halloween: {
+				backgroundImage: '/images/ghosts.gif',
+				navbarColor: '#F89A29',
+				navbarActiveColor: '#D87A00',
+				navbarLinkColor: '#FFFFFF',
+				titleColor: '#F89A29',
+				subtitleColor: '',
+				linkColor: '#F89A29',
+				textColor: '#FFFFFF',
+				buttonColor: '#F89A29',
+				buttonHoverColor: '#D87A00',
+				dividerColor: '#F89A29',
+				announcementsBackground: 'rgba(1, 1, 1, 0.5)'
+			},
+			thanksgiving: {
+				backgroundImage: '/images/leaves.png',
+				navbarColor: '#6D411E',
+				navbarActiveColor: '#4D2100',
+				navbarLinkColor: '#FFFE7F',
+				titleColor: '#FFFFFF',
+				subtitleColor: '#FFFE7F',
+				linkColor: '#FFFE7F',
+				textColor: '#FFFFFF',
+				buttonColor: '#6D411E',
+				buttonHoverColor: '#4D2100',
+				dividerColor: '#FFFFFF',
+				announcementsBackground: 'rgba(1, 1, 1, 0.2)'
+			},
+			christmas: {
+				backgroundImage: '/images/christmas.jpg',
+				navbarColor: '#DF3227',
+				navbarActiveColor: '#BF1207',
+				navbarLinkColor: '#21E025',
+				titleColor: '#FFFFFF',
+				subtitleColor: '#FFFFFF',
+				linkColor: '#61F065',
+				textColor: '#FFFFFF',
+				buttonColor: '#DF3227',
+				buttonHoverColor: '#BF1207',
+				dividerColor: '#FFFFFF',
+				announcementsBackground: 'rgba(1, 1, 1, 0.5)'
+			}
+	};
+	useStyle(themes[theme]);
+}
+
+function useStyle(style) {
+	if (style) {
+		var css = '<style>';
+		css += 'body {background-color: #6D411E; background-image: url(' + style.backgroundImage + '); background-size: ' + style.backgroundSize + '}';
+		css += '.navbar-inverse {background-color: ' + style.navbarColor + '}';
+		css += '.active > a {background-color: ' + style.navbarActiveColor + '!important}';
+		css += '.navbar a {color:' + style.navbarLinkColor + '!important}'
+		css += '.navbar-brand p {color:' + style.navbarLinkColor + '}'
+		css += '#title {color: ' + style.titleColor + '!important}';
+		css += '#subtitle {color: ' + style.subtitleColor + '}';
+		css += 'a, a:hover, #title {color: ' + style.linkColor + '}';
+		css += 'div, p, h2 {color: ' + style.textColor + '}';
+		css += '.btn-default {background-color: ' + style.buttonColor + '}';
+		css += '.btn-default:hover {background-color: ' + style.buttonHoverColor + '}';
+		css += '.featurette-divider {border-top: 1px solid ' + style.dividerColor + '!important}';
+		css += '.well {background: ' + style.announcementsBackground + '}';
+		css += 'input {background-color: #ffffff; color: #000000} '
+			+ '#chatDisplay {background-color: #ffffff}'
+			+ '#chatDisplay div {color: #000000}'
+			+ 'input {background-color: #ffffff}';
+		css += '</style>';
+		$('body').append(css);
+	}
 }
 

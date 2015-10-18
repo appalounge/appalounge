@@ -77,6 +77,7 @@ function create(db) {
 	app.use('/data/gallery', require(path.join(__dirname, config.server.routesDirectory, 'data/gallery'))(db));
 	app.use('/data/chat', require(path.join(__dirname, config.server.routesDirectory, 'data/chat'))(db));
 	app.use('/data/files', require(path.join(__dirname, config.server.routesDirectory, 'data/files'))(db));
+	app.use('/data/theme', require(path.join(__dirname, config.server.routesDirectory, 'data/theme'))(db));
 	
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
