@@ -26,6 +26,7 @@ $(function() {
 			}
 		}
 
+		//$('body').append('<img class="img-circle hvr-grow-rotate" src="/images/11989105_883896211686452_401753163_n.gif" style="position: absolute; top: 30px; left: 30px; width: 100px; height: 100px; margin-bottom: 32px;"></img>');
 		$('ul.nav.navbar-nav').append('<li><a href="javascript:turndownforwhat()"></a></li>');
 	});
 	
@@ -123,6 +124,7 @@ function customize(theme) {
 	var themes = {
 			halloween: {
 				backgroundImage: '/images/ghosts.gif',
+				backgroundSize: '',
 				navbarColor: '#F89A29',
 				navbarActiveColor: '#D87A00',
 				navbarLinkColor: '#FFFFFF',
@@ -137,6 +139,7 @@ function customize(theme) {
 			},
 			thanksgiving: {
 				backgroundImage: '/images/leaves.png',
+				backgroundSize: '',
 				navbarColor: '#6D411E',
 				navbarActiveColor: '#4D2100',
 				navbarLinkColor: '#FFFE7F',
@@ -151,6 +154,7 @@ function customize(theme) {
 			},
 			christmas: {
 				backgroundImage: '/images/christmas.jpg',
+				backgroundSize: '',
 				navbarColor: '#DF3227',
 				navbarActiveColor: '#BF1207',
 				navbarLinkColor: '#21E025',
@@ -161,6 +165,66 @@ function customize(theme) {
 				buttonColor: '#DF3227',
 				buttonHoverColor: '#BF1207',
 				dividerColor: '#FFFFFF',
+				announcementsBackground: 'rgba(1, 1, 1, 0.5)'
+			},
+			snow: {
+				backgroundImage: '/images/snow.gif',
+				backgroundSize: '',
+				navbarColor: '#F89A29',
+				navbarActiveColor: '#D87A00',
+				navbarLinkColor: '#FFFFFF',
+				titleColor: '#F89A29',
+				subtitleColor: '',
+				linkColor: '#F89A29',
+				textColor: '#FFFFFF',
+				buttonColor: '#F89A29',
+				buttonHoverColor: '#D87A00',
+				dividerColor: '#F89A29',
+				announcementsBackground: 'rgba(1, 1, 1, 0.5)'
+			},
+			stars: {
+				backgroundImage: '/images/stars.gif',
+				backgroundSize: '',
+				navbarColor: '#F89A29',
+				navbarActiveColor: '#D87A00',
+				navbarLinkColor: '#FFFFFF',
+				titleColor: '#F89A29',
+				subtitleColor: '',
+				linkColor: '#F89A29',
+				textColor: '#FFFFFF',
+				buttonColor: '#F89A29',
+				buttonHoverColor: '#D87A00',
+				dividerColor: '#F89A29',
+				announcementsBackground: 'rgba(1, 1, 1, 0.5)'
+			},
+			rain: {
+				backgroundImage: '/images/rain.gif',
+				backgroundSize: '',
+				navbarColor: '#F89A29',
+				navbarActiveColor: '#D87A00',
+				navbarLinkColor: '#FFFFFF',
+				titleColor: '#F89A29',
+				subtitleColor: '',
+				linkColor: '#F89A29',
+				textColor: '#FFFFFF',
+				buttonColor: '#F89A29',
+				buttonHoverColor: '#D87A00',
+				dividerColor: '#F89A29',
+				announcementsBackground: 'rgba(1, 1, 1, 0.5)'
+			},
+			matrix: {
+				backgroundImage: '/images/matrix.gif',
+				backgroundSize: '400px',
+				navbarColor: '#F89A29',
+				navbarActiveColor: '#D87A00',
+				navbarLinkColor: '#FFFFFF',
+				titleColor: '#F89A29',
+				subtitleColor: '',
+				linkColor: '#F89A29',
+				textColor: '#FFFFFF',
+				buttonColor: '#F89A29',
+				buttonHoverColor: '#D87A00',
+				dividerColor: '#F89A29',
 				announcementsBackground: 'rgba(1, 1, 1, 0.5)'
 			}
 	};

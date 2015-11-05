@@ -33,7 +33,36 @@ var config = {
 	        	sessions: 'sessions',
 	        	announcements: 'announcements'
 	        }
-	    }
+	    },
+	    users: [
+                'amowayed',
+                'jhbell',
+                'chauhans',
+                'jcorona',
+                'hdiehl',
+                'lilydove',
+                'ignacioe',
+                'mfeffer',
+                'cierag',
+                'rgulland',
+                'asheidt',
+                'yji',
+                'nkogan',
+                'jacqliu',
+                'pnoyola',
+                'dypark',
+                'rprice',
+                'regirock',
+                'jerios',
+                'jspileck',
+                'emistan4',
+                'edstiles',
+                'tristant',
+                'loctrinh',
+                'snvd',
+                'vontell',
+                'ewadkins'
+                ]
 }
 
 module.exports = config;
