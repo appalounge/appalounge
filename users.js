@@ -15,10 +15,14 @@ else {
 	else if (process.argv[2] && process.argv[2].toLowerCase() === 'removeall') {
 		removeAll();
 	}
+	else if (process.argv[2] && process.argv[2].toLowerCase() === 'setpassword' && process.argv[3] && process.argv[4]) {
+		setPassword(process.argv[3], process.argv[4]);
+	}
 	else {
 		console.log('\'node users add <user>\' - creates a new user');
 		console.log('\'node users remove <user>\' - removes a user');
 		console.log('\'node users removeAll\' - removes all users');
+		console.log('\'node users setPassword <user> <password>\' - resets a user\'s password');
 	}
 }
 
@@ -121,6 +125,25 @@ function removeAll(callback) {
 	});
 }
 
+function setPassword(user, password, callback) {
+	connect(function(db) {
+		var salt = bcrypt.genSaltSync(10);
+	    var hash = bcrypt.hashSync(password, salt);
+		db.collection(config.db.collections.users).update({ username: user }, { $set: { password: hash } }, function(err) {
+			db.close();
+			if (err) {
+				console.error(err.toString());
+			}
+			else {
+				console.log('Password set');
+			}
+			if (callback) {
+				callback();
+			}
+		});
+	});
+}
+
 function UserData(username, password) {
 	var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(password, salt);
@@ -155,5 +178,6 @@ function UserData(username, password) {
 module.exports = {
 		add: add,
 		remove: remove,
-		removeAll: removeAll
+		removeAll: removeAll,
+		setPassword: setPassword
 }
