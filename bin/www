@@ -16,11 +16,16 @@ var fs = require('fs');
 var mongodb = require('mongodb');
 
 /**
+ * Adds appa users
+ */
+ require('../addAppaUsers')();
+
+/**
  * Attempt to connect to MongoDB database.
  */
 
 var MongoClient = mongodb.MongoClient;
-var dburi = 'mongodb://' + config.db.hostname + ':' + config.db.port + '/' + config.db.mainDb;
+var dburi = process.env.PROD_MONGODB;
 MongoClient.connect(dburi, { server: { ssl: config.db.useSSL, sslValidate: false } }, function (err1, db) {
   if (err1) {
     db = null;
