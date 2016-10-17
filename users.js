@@ -28,7 +28,7 @@ else {
 
 function connect(callback) {
 	var MongoClient = mongodb.MongoClient;
-	var dburi = process.env.PROD_MONGODB;//'mongodb://' + config.db.hostname + ':' + config.db.port + '/' + config.db.mainDb;
+	var dburi = 'mongodb://' + config.db.hostname + ':' + config.db.port + '/' + config.db.mainDb;
 	MongoClient.connect(dburi, { server: { ssl: config.db.useSSL, sslValidate: false } }, function (err1, db) {
 		if (err1) {
 			console.error(err1.toString());
