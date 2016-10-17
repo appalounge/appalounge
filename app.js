@@ -46,8 +46,6 @@ function create(db) {
 	        }
 	};
 	app.use(morgan('dev', { stream: logger.stream }));
-    
-    fs.existsSync(config.fileDirectory) || fs.mkdirSync(config.fileDirectory);
 
 	// uncomment after placing your favicon in /public
 	//app.use(favicon(path.join(__dirname, 'public/images/favicon.ico')));
