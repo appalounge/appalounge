@@ -4,6 +4,7 @@ var users = require('./users');
 var send = require('./send');
 
 var userList = config.users;
+userList = []; // just a precaution
 
 var i = 0;
 nextUser();
