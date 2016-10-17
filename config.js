@@ -35,33 +35,30 @@ var config = {
 	        }
 	    },
 	    users: [
-                'amowayed',
                 'jhbell',
+                'jamescao',
                 'chauhans',
                 'jcorona',
                 'hdiehl',
                 'lilydove',
                 'ignacioe',
+                'edwardf',
                 'mfeffer',
-                'cierag',
                 'rgulland',
-                'asheidt',
-                'yji',
-                'nkogan',
                 'jacqliu',
+                'domenicn',
                 'pnoyola',
-                'dypark',
                 'rprice',
-                'regirock',
                 'jerios',
                 'jspileck',
-                'emistan4',
                 'edstiles',
                 'tristant',
+                'jmtorres',
                 'loctrinh',
                 'snvd',
                 'vontell',
-                'ewadkins'
+                'ewadkins',
+                'stellay'
                 ]
 }
 
