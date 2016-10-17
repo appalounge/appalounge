@@ -1,6 +1,6 @@
 var config = require('./config');
 var mongodb = require('mongodb');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 
 if (process.argv[1].indexOf(__filename.substr(0, __filename.indexOf('.'))) === -1) {
 	// Required from another file
