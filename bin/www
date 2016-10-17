@@ -18,7 +18,7 @@ var mongodb = require('mongodb');
 /**
  * Adds appa users
  */
- require('../addAppaUsers')();
+ //require('../addAppaUsers')();
 
 /**
  * Attempt to connect to MongoDB database.
